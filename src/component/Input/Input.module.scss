@@ -1,0 +1,18 @@
+@import '../../style/variables.scss';
+
+.myInput {
+  height: 28px;
+  border: 1px solid $neutral200;
+  box-shadow: inset 0px 0px 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  color: $dark200;
+  padding-left: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+input::-webkit-input-placeholder {
+  color: $neutral200;
+}

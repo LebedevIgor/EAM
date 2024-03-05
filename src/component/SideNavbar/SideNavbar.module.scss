@@ -1,0 +1,148 @@
+@import '../../style/variables.scss';
+
+@keyframes slide-up {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.navbar {
+  min-width: 200px;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+
+  .logo {
+    background-color: $mainBlue;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      scale: 0.8;
+    }
+  }
+
+  .active_link {
+    color: $grey !important;
+    border-left: 5px solid $mainBlue;
+    padding-left: 11px !important;
+
+    svg {
+      path {
+        fill: $grey;
+      }
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    margin-top: 18px;
+
+    a {
+      padding-left: 16px;
+      margin: 6px 0;
+      display: flex;
+      text-decoration: none;
+      color: $fiol;
+      line-height: 15px;
+      align-items: center;
+
+      svg {
+        padding-right: 8px;
+      }
+    }
+  }
+}
+
+.open {
+  display: none;
+}
+
+.menuToggle {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 910px) {
+  .navbar {
+    display: none;
+  }
+  .open {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    background-color: rgba($color: #797979, $alpha: 0.9);
+    animation: slide-up 0.5s ease-in-out forwards;
+    opacity: 0;
+    .wrapper_icon {
+      display: flex;
+      align-items: center;
+      margin-right: 24px;
+      color: white;
+      padding: 20px;
+      .task {
+        font-size: 16px;
+      }
+
+      svg {
+        margin-left: 16px;
+        cursor: pointer;
+      }
+    }
+    .wrapper {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 8px 0 8px;
+    }
+    .logo {
+      display: block;
+      img {
+        width: 200px;
+      }
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      font-size: 20px;
+      margin-top: 18px;
+
+      a {
+        padding-left: 16px;
+        margin: 6px 0;
+        display: flex;
+        text-decoration: none;
+        color: white;
+        line-height: 15px;
+        align-items: center;
+
+        svg {
+          padding-right: 8px;
+          path {
+            fill: white;
+            stroke: white;
+          }
+        }
+      }
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .menuToggle {
+    display: block;
+  }
+}

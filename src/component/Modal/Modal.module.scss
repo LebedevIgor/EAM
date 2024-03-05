@@ -1,0 +1,34 @@
+@import '../../style/variables.scss';
+
+.myModal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: none;
+  border: 0.5px solid;
+  filter: drop-shadow(0px 0px 7px rgba(0, 0, 0, 0.25));
+  z-index: 2;
+}
+.content {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 12px;
+  background: white;
+  i {
+    display: flex;
+    justify-content: flex-end;
+  }
+  input {
+    margin-top: 8px;
+  }
+}
+.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

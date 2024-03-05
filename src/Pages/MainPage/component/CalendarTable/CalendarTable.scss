@@ -1,0 +1,118 @@
+@import '../../../../style/variables.scss';
+
+.wrapper_calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-left: 1px solid $dark200;
+  border-top: 1px solid $dark200;
+  border-radius: 10px;
+  .day {
+    border-bottom: 1px solid $dark200;
+    border-right: 1px solid $dark200;
+    text-align: center;
+    height: 100px;
+    width: 130px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 200ms, color 200ms;
+    text-align: initial;
+    padding: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    &:hover {
+      background-color: $mainBlue;
+      * {
+        color: $light100 !important;
+      }
+    }
+    .numberDay {
+      color: $dark100;
+      line-height: 1em;
+      font-size: 14px;
+    }
+    .event {
+      color: $dark200;
+      line-height: 1em;
+      margin-top: 8px;
+    }
+    .participants {
+      color: $dark200;
+      line-height: 1em;
+      margin-top: 8px;
+    }
+    &:nth-child(1) {
+      border-radius: 10px 0 0 0;
+    }
+    &:nth-child(7) {
+      border-radius: 0 10px 0 0;
+    }
+
+    &:nth-child(36) {
+      border-radius: 0 0 0 10px;
+    }
+    &:nth-child(42) {
+      border-radius: 0 0 10px 0;
+    }
+  }
+  .active {
+    background-color: $neutral100;
+  }
+  .lesson {
+    margin-top: 8px;
+    color: $dark100 !important;
+    font-size: 10px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 1290px) {
+  .wrapper_calendar {
+    .day {
+      height: 90px;
+      width: 100px;
+      font-size: 12px;
+    }
+    .lesson {
+      margin-top: 8px;
+      font-size: 8px;
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 1080px) {
+  .wrapper_calendar {
+    .day {
+      height: 70px;
+      width: 60px;
+      font-size: 12px;
+      .numberDay {
+        font-size: 10px;
+        text-wrap: initial;
+      }
+    }
+
+    .lesson {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  .wrapper_calendar {
+    .day {
+      height: 60px;
+      width: 40px;
+      font-size: 10px;
+      padding: 1px;
+      .numberDay {
+        font-size: 8px;
+      }
+    }
+
+    .lesson {
+      display: none;
+    }
+  }
+}

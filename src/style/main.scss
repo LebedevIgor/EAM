@@ -1,0 +1,21 @@
+@import "./variables.scss";
+@import url("../resources/Fonts/Fedr_Sans_Alt_Pro/style.css");
+html {
+    body {
+        height: 100vh;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: $mainBG;
+        font-family: "MS Sans Serif", Geneva, sans-serif;
+        #root {
+            height: 100%;
+        }
+    }
+}
+
+.app {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
