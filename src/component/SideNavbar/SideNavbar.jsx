@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import EducationalActivities from '../../resources/image/icon/EducationalActivities';
-import EconomicActivity from '../../resources/image/icon/EconomicActivity';
+
+import Chat from '../../resources/image/icon/Chat';
+import PersonalManagement from '../../resources/image/icon/PersonalManagement';
 import Main from '../../resources/image/icon/Main';
 import classes from './SideNavbar.module.scss';
 import X from '../../resources/image/X.png';
@@ -35,11 +36,11 @@ const SideNavbar = ({ posts }) => {
           </NavLink>
 
           <NavLink to="chat" className={setActive}>
-            <EducationalActivities />
+            <Chat />
             <span>Чат</span>
           </NavLink>
           <NavLink to="about" className={setActive}>
-            <EconomicActivity />
+            <PersonalManagement />
             <span>О нас</span>
           </NavLink>
         </div>
@@ -65,22 +66,14 @@ const SideNavbar = ({ posts }) => {
               <span>Календарь</span>
             </NavLink>
             <NavLink to="chat" className={setActive} onClick={toggleMenu}>
-              <EducationalActivities />
+              <Chat />
               <span>Чат</span>
             </NavLink>
             <NavLink to="about" className={setActive} onClick={toggleMenu}>
-              <EconomicActivity />
+              <PersonalManagement />
               <span>О нас</span>
             </NavLink>
           </div>
-          {/* <div className={classes.wrapper_icon}>
-            <div className={classes.task}>
-              Актуальные события на {currentDate}:{' '}
-              {posts.map((i) =>
-                i.id === currentDate ? i.event || 'Событий нет' : null
-              )}
-            </div>
-          </div> */}
         </div>
       ) : null}
       <img

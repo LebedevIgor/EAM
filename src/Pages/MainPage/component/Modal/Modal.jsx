@@ -24,8 +24,6 @@ const Modal = ({ posts, setModal, target, setPosts, month, data }) => {
       }
     });
     setPosts(newPosts);
-    console.log(newPosts);
-    // localStorage.setItem(month, JSON.stringify(newPosts));
   }
 
   const readyPost = (e) => {
@@ -48,7 +46,6 @@ const Modal = ({ posts, setModal, target, setPosts, month, data }) => {
       }
     });
     setPosts(newPosts);
-    // localStorage.setItem(month, JSON.stringify(newPosts));
     setModal(false);
   }
   function getValue(prop) {

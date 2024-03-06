@@ -1,105 +1,106 @@
-@import "../../style/variables.scss";
+@import '../../style/variables.scss';
 
 .header {
-    width: 100%;
-    background-color: #fff;
-    height: 72px;
+  width: 100%;
+  background-color: #fff;
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .input {
+    margin-left: 24px;
+    position: relative;
+    label {
+      display: flex;
+      align-items: center;
+      input {
+        color: $dark100;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid $fiol;
+        height: 27px;
+        width: 250px;
+        padding: 0;
+        margin: 0;
+        font-size: 20px;
+        &:focus {
+          outline: none;
+        }
+      }
+      svg {
+        padding-bottom: 2px;
+        border-bottom: 1px solid $fiol;
+      }
+    }
+    .dropdown {
+      width: 238px;
+      position: absolute;
+      margin-top: 25px;
+      background: white;
+      padding: 18px;
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      .search_card {
+        margin-bottom: 30px;
+        padding: 6px;
+        border: 1px solid #cfcfcf;
+        border-radius: 10px;
+        cursor: pointer;
+        &:last-child {
+          margin: 0;
+        }
+        &:hover {
+          &:hover {
+            background-color: $mainBlue;
+            color: white;
+            border: 1px solid black;
+          }
+        }
+      }
+      .no_search_card {
+        margin-bottom: 30px;
+        padding: 6px;
+        border: 1px solid #cfcfcf;
+        border-radius: 10px;
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .wrapper_icon {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    .input {
-        margin-left: 24px;
-        position: relative;
-        label {
-            display: flex;
-            align-items: center;
-            input {
-                background: transparent;
-                border: none;
-                border-bottom: 1px solid $fiol;
-                height: 29px;
-                width: 285px;
-                padding: 0;
-                margin: 0;
-                font-size: 20px;
-                &:focus {
-                    outline: none;
-                }
-            }
-            svg {
-                padding-bottom: 4px;
-                border-bottom: 1px solid $fiol;
-            }
-        }
-        .dropdown {
-            position: absolute;
-            margin-top: 25px;
-            background: white;
-            padding: 18px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2),
-                0 2px 14px 0 rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            .search_card {
-                margin-bottom: 30px;
-                padding: 6px;
-                border: 1px solid #cfcfcf;
-                border-radius: 10px;
-                cursor: pointer;
-                &:last-child {
-                    margin: 0;
-                }
-                &:hover {
-                    &:hover {
-                        background-color: $mainBlue;
-                        color: white;
-                        border: 1px solid black;
-                    }
-                }
-            }
-            .no_search_card {
-                margin-bottom: 30px;
-                padding: 6px;
-                border: 1px solid #cfcfcf;
-                border-radius: 10px;
-                &:last-child {
-                    margin: 0;
-                }
-            }
-        }
+    margin-right: 24px;
+    .task {
+      font-size: 14px;
     }
 
-    .wrapper_icon {
-        display: flex;
-        align-items: center;
-        margin-right: 24px;
-        .task {
-            font-size: 14px;
-        }
-
-        svg {
-            margin-left: 16px;
-            cursor: pointer;
-        }
+    svg {
+      margin-left: 16px;
+      cursor: pointer;
     }
+  }
 }
 
 @media (max-width: 910px) {
-    .wrapper_icon {
-        margin-right: 8px !important;
-        .task {
-            display: none;
-        }
+  .wrapper_icon {
+    margin-right: 8px !important;
+    .task {
+      display: none;
     }
-    .header {
-        .input {
-            margin-left: 8px;
-            label {
-                input {
-                    height: 29px;
-                    width: 180px;
-                    font-size: 14px;
-                }
-            }
+  }
+  .header {
+    .input {
+      margin-left: 8px;
+      label {
+        input {
+          height: 29px;
+          width: 180px;
+          font-size: 14px;
         }
+      }
     }
+  }
 }

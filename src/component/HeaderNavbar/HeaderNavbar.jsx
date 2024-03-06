@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+
 import Exit from '../../resources/image/icon/Exit';
 import Lupa from '../../resources/image/icon/Lupa';
 import classes from './HeaderNavbar.module.scss';
-import { useNavigate } from 'react-router';
+import User from '../../resources/image/icon/User';
 
 const HeaderNavbar = ({ month, compareTarget, posts }) => {
-  const [modalList, setModalList] = useState(
-    JSON.parse(window.localStorage.getItem(month)) || []
-  );
+  const [modalList, setModalList] = useState(posts);
+  // console.log(posts);
   const [searchTerm, setSearchTerm] = useState('');
 
   const navigate = useNavigate();
-
-  var currentDate = new Date().toLocaleDateString('ru-RU', {
-    day: 'numeric',
-    month: '2-digit',
-    year: 'numeric',
-  });
 
   const filterModal = (searchText, listOfModal) => {
     if (!searchText || !Array.isArray(listOfModal)) {
@@ -29,9 +24,8 @@ const HeaderNavbar = ({ month, compareTarget, posts }) => {
   };
 
   useEffect(() => {
-    const storedModal = window.localStorage.getItem(month);
-    const parsedModal = storedModal ? JSON.parse(storedModal) : [];
-    const filteredModal = filterModal(searchTerm, parsedModal);
+    const filteredModal = filterModal(searchTerm, posts);
+    console.log(filteredModal);
     setModalList(filteredModal);
   }, [searchTerm, month]);
 
@@ -83,7 +77,7 @@ const HeaderNavbar = ({ month, compareTarget, posts }) => {
   return (
     <div className={classes.header}>
       <div className={classes.input}>
-        {/* <label>
+        <label>
           <Lupa />
           <input
             placeholder="Поиск заметок по событию"
@@ -92,7 +86,7 @@ const HeaderNavbar = ({ month, compareTarget, posts }) => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </label> */}
+        </label>
 
         {renderModalList()}
       </div>
@@ -103,6 +97,7 @@ const HeaderNavbar = ({ month, compareTarget, posts }) => {
             i.id === currentDate ? i.event || 'Событий нет' : null
           )}
         </div> */}
+        <User />
         <Exit onClick={handleExitClick} />
       </div>
     </div>

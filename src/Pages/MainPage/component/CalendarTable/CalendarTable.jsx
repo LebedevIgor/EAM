@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+
 import './CalendarTable.scss';
 
 const CalendarTable = ({
@@ -9,11 +10,7 @@ const CalendarTable = ({
   compareTarget,
   data,
 }) => {
-  //   const [posts, setPosts] = useState(initialPosts);
-
   const cellsAmount = 42;
-  const cells = [];
-  const prevDaysAmount = getPrevDaysAmount();
 
   const weekDays = [
     'Понедельник',

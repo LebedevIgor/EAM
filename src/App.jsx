@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from 'react-router-dom';
 
 import './style/main.scss';
 import MainPage from './Pages/MainPage/MainPage';
@@ -51,7 +57,10 @@ function App() {
           <Route path="register" element={<AuthorizationPage />} />
         </Route>
         {token && (
-          <Route path="/" element={<Layout />}>
+          <Route
+            path="/"
+            element={<Layout posts={posts} compareTarget={compareTarget} />}
+          >
             <Route
               index
               element={
@@ -70,6 +79,7 @@ function App() {
             />
             <Route path="chat" element={<></>} />
             <Route path="about" element={<></>} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         )}
       </Routes>
