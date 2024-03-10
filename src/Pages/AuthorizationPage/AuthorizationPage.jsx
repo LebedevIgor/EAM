@@ -27,8 +27,6 @@ const AuthorizationPage = () => {
     type = 'register';
   }
 
-  console.log(type);
-
   const [token, setToken] = useState(null);
 
   const setValues = async (values) => {
