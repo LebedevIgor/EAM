@@ -35,7 +35,7 @@ const HeaderNavbar = ({ month, compareTarget, posts }) => {
   };
 
   const handleClickList = (e) => {
-    navigate('/');
+    navigate('/calendar');
     setSearchTerm('');
     compareTarget(e);
   };

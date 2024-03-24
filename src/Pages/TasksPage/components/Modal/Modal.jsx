@@ -9,11 +9,13 @@ const Modal = ({ setModal, setTask }) => {
   const [description, setDescription] = useState('');
   console.log(taskName, description);
   const addTasks = () => {
-    const newTask = { taskName, description };
-    setTask((prevTasks) => [...prevTasks, newTask]);
-    setModal(false);
-    setTaskName('');
-    setDescription('');
+    if (taskName.length > 0 && description.length > 0) {
+      const newTask = { taskName, description };
+      setTask((prevTasks) => [...prevTasks, newTask]);
+      setModal(false);
+      setTaskName('');
+      setDescription('');
+    }
   };
 
   return (
