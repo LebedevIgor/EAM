@@ -32,16 +32,15 @@ const SideNavbar = ({ posts }) => {
         <div className={classes.links}>
           <NavLink to="/" className={setActive}>
             <Main />
+            <span>Главная</span>
+          </NavLink>
+          <NavLink to="calendar" className={setActive}>
+            <PersonalManagement />
             <span>Календарь</span>
           </NavLink>
-
           <NavLink to="chat" className={setActive}>
             <Chat />
             <span>Чат</span>
-          </NavLink>
-          <NavLink to="about" className={setActive}>
-            <PersonalManagement />
-            <span>О нас</span>
           </NavLink>
         </div>
       </div>
@@ -63,15 +62,15 @@ const SideNavbar = ({ posts }) => {
           <div className={classes.links}>
             <NavLink to="/" className={setActive} onClick={toggleMenu}>
               <Main />
+              <span>Главная</span>
+            </NavLink>
+            <NavLink to="calendar" className={setActive} onClick={toggleMenu}>
+              <PersonalManagement />
               <span>Календарь</span>
             </NavLink>
             <NavLink to="chat" className={setActive} onClick={toggleMenu}>
               <Chat />
               <span>Чат</span>
-            </NavLink>
-            <NavLink to="about" className={setActive} onClick={toggleMenu}>
-              <PersonalManagement />
-              <span>О нас</span>
             </NavLink>
           </div>
         </div>

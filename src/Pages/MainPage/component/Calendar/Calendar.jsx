@@ -4,7 +4,6 @@ import CalendarTable from '../CalendarTable/CalendarTable';
 import MonthSelector from '../MonthSelector/MonthSelector';
 
 import Modal from '../Modal/Modal';
-import './Calendar.scss';
 import MyModal from '../../../../component/Modal/Modal';
 
 const Calendar = ({
@@ -18,11 +17,11 @@ const Calendar = ({
   modal,
   setModal,
   target,
+  now,
+  setNow,
 }) => {
-  const [now, setNow] = useState(new Date().getFullYear());
-
   return (
-    <div className="container">
+    <>
       <MonthSelector
         month={month}
         setMonth={setMonth}
@@ -47,7 +46,7 @@ const Calendar = ({
           data={data}
         />
       </MyModal>
-    </div>
+    </>
   );
 };
 

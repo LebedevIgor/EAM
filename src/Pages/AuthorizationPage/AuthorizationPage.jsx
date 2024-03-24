@@ -9,7 +9,7 @@ import LogoBlue from '../../resources/image/icon/LogoBlue';
 
 import login from '../../services/login.service';
 import register from '../../services/register.service';
-import { saveToken } from '../../utils/token/token';
+import { saveToken, saveLogin } from '../../utils/token/token';
 
 import { loginInitialValue } from './InitialValues/loginInitialValue';
 import { loginValidationSchema } from './ValidationSchema/loginValidationSchema';
@@ -28,12 +28,14 @@ const AuthorizationPage = () => {
   }
 
   const [token, setToken] = useState(null);
+  const [loginName, setLoginName] = useState(null);
 
   const setValues = async (values) => {
     try {
       const data =
         type === 'register' ? await register(values) : await login(values);
       setToken(data.access_token);
+      setLoginName(data.login);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -42,9 +44,10 @@ const AuthorizationPage = () => {
   useEffect(() => {
     if (token !== null) {
       saveToken(token);
+      saveLogin(loginName);
       navigate('/');
     }
-  }, [token, navigate]);
+  }, [token, loginName, navigate]);
 
   return (
     <Formik

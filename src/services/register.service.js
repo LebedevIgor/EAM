@@ -3,7 +3,7 @@ import axios from 'axios';
 const register = async (values) => {
   try {
     const response = await axios.post(
-      'https://bold-ripple-kilogram.glitch.me/register',
+      'http://127.0.0.1:5000/register',
       {
         data: {
           username: values.username,

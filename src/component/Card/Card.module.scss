@@ -1,0 +1,16 @@
+@import '../../style/variables.scss';
+
+.card {
+  padding: 10px;
+  background-color: $light100;
+  border-radius: 10px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.hovered:hover {
+  cursor: pointer;
+  background-color: $mainBlue;
+  * {
+    color: $light100 !important;
+  }
+}
