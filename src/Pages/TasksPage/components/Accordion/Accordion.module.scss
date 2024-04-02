@@ -1,0 +1,16 @@
+@import '../../../../style/variables.scss';
+
+.accordion {
+  height: 30px;
+  margin: 13px 0 13px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .selectro_wrapper {
+    color: #0271c7;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+  }
+}

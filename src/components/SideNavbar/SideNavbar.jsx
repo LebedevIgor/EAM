@@ -40,7 +40,7 @@ const SideNavbar = ({ posts }) => {
           </NavLink>
           <NavLink to="chat" className={setActive}>
             <Chat />
-            <span>Чат</span>
+            <span>Контакты</span>
           </NavLink>
         </div>
       </div>
@@ -70,7 +70,7 @@ const SideNavbar = ({ posts }) => {
             </NavLink>
             <NavLink to="chat" className={setActive} onClick={toggleMenu}>
               <Chat />
-              <span>Чат</span>
+              <span>Контакты</span>
             </NavLink>
           </div>
         </div>

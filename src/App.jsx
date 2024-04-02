@@ -9,28 +9,18 @@ import {
 
 import './style/main.scss';
 import MainPage from './Pages/MainPage/MainPage';
-import Layout from './component/Layout/Layout';
+import Layout from './components/Layout/Layout';
 import AuthorizationPage from './Pages/AuthorizationPage/AuthorizationPage';
 
 import { getToken } from './utils/token/token';
 import Profile from './Pages/ProfilePage/ProfilePage';
 import TasksPage from './Pages/TasksPage/TasksPage';
+import getDataTask from './services/getDataTask.service';
 
 function App() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-  const [task, setTask] = useState([
-    {
-      taskName: 'Задача 1',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu lectus vestibulum, interdum risus vel, molestie mauris. Etiam fringilla eros nisl, sit amet auctor mauris fermentum in. Mauris interdum consectetur tempus. In hac habitasse platea dictumst. Pellentesque risus neque, malesuada id dui vitae, faucibus finibus felis. Nunc et dapibus nisl. Pellentesque ut tempus risus. Pellentesque non tincidunt nisi, vel molestie velit. ',
-    },
-    {
-      taskName: 'Задача 2',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu lectus vestibulum, interdum risus vel, molestie mauris. Etiam fringilla eros nisl, sit amet auctor mauris fermentum in. Mauris interdum consectetur tempus. In hac habitasse platea dictumst. Pellentesque risus neque, malesuada id dui vitae, faucibus finibus felis. Nunc et dapibus nisl. Pellentesque ut tempus risus. Pellentesque non tincidunt nisi, vel molestie velit.',
-    },
-  ]);
+  const [task, setTask] = useState([]);
   const [target, setTarget] = useState(null);
   const [modal, setModal] = useState(false);
   const [month, setMonth] = useState(new Date().getMonth());
@@ -54,6 +44,28 @@ function App() {
 
   const token = getToken();
   const location = useLocation().pathname;
+
+  // const setValues = async () => {
+  //   try {
+  //     const dataTasks = await getDataTask();
+  //     setTask(dataTasks.data);
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
+
+  useEffect(() => {
+    const setValues = async () => {
+      try {
+        const dataTasks = await getDataTask();
+        setTask(dataTasks.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    setValues();
+  }, []);
+
   useEffect(() => {
     if (
       !token &&

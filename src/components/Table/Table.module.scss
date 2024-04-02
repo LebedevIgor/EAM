@@ -1,0 +1,65 @@
+@import '../../style/variables.scss';
+
+.table {
+  display: flex;
+  flex-direction: column;
+  &:hover {
+    cursor: default;
+  }
+}
+
+.tbody {
+  .tr:first-child {
+    border-top: 1px solid $neutral200;
+  }
+}
+
+.thead {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr 1fr 1fr;
+  height: 30px;
+  margin-bottom: 16px;
+}
+
+.tr {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr 1fr 1fr;
+  height: 50px;
+  border-bottom: 1px solid $neutral200;
+}
+
+.th {
+  display: flex;
+  align-items: center;
+  border-left: 1px solid $neutral200;
+  padding: 0 15px 0 15px;
+  &:first-child {
+    padding: 0 15px 0 0;
+    border-left: 0;
+  }
+  &:last-child {
+    padding: 0 0 0 15px;
+  }
+}
+
+.td {
+  display: flex;
+  align-items: center;
+  padding: 0 15px 0 15px;
+  &:first-child {
+    padding: 0 15px 0 0;
+  }
+  &:last-child {
+    padding: 0 0 0 15px;
+  }
+}
+
+.center {
+  justify-content: center;
+}
+.left {
+  justify-content: start;
+}
+.right {
+  justify-content: end;
+}

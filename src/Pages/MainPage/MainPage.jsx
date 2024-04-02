@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './MainPage.module.scss';
 
 import Calendar from './component/Calendar/Calendar';
-import Card from '../../component/Card/Card';
+import Card from '../../components/Card/Card';
 
 const MainPage = ({
   data,
@@ -26,7 +26,6 @@ const MainPage = ({
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          margin: '20px 20px 0 20px',
         }}
       >
         <Calendar

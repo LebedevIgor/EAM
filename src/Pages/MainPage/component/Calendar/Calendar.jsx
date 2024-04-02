@@ -4,7 +4,7 @@ import CalendarTable from '../CalendarTable/CalendarTable';
 import MonthSelector from '../MonthSelector/MonthSelector';
 
 import Modal from '../Modal/Modal';
-import MyModal from '../../../../component/Modal/Modal';
+import MyModal from '../../../../components/Modal/Modal';
 
 const Calendar = ({
   posts,

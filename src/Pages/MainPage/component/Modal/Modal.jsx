@@ -1,8 +1,8 @@
 import React from 'react';
 import './modal.scss';
 import Cross from '../../../../resources/image/icon/Cross';
-import Input from '../../../../component/Input/Input';
-import Button from '../../../../component/Button/Button';
+import Input from '../../../../components/Input/Input';
+import Button from '../../../../components/Button/Button';
 
 const Modal = ({ posts, setModal, target, setPosts, month, data }) => {
   const timeArr = [

@@ -3,8 +3,8 @@ import { Formik, Form } from 'formik';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import classes from './Authorization.module.scss';
-import Button from '../../component/Button/Button';
-import FormikInput from '../../component/FormikInput/FormikInput';
+import Button from '../../components/Button/Button';
+import FormikInput from '../../components/FormikInput/FormikInput';
 import LogoBlue from '../../resources/image/icon/LogoBlue';
 
 import login from '../../services/login.service';
@@ -34,7 +34,7 @@ const AuthorizationPage = () => {
     try {
       const data =
         type === 'register' ? await register(values) : await login(values);
-      setToken(data.access_token);
+      setToken(data.success === true ? data.access_token : null);
       setLoginName(data.login);
     } catch (error) {
       console.error('Error:', error);

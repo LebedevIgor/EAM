@@ -1,12 +1,14 @@
 @import '../../style/variables.scss';
 
 .header {
-  width: 100%;
+  width: -webkit-fill-available;
+  width: -moz-available;
   background-color: #fff;
   height: 72px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
   .input {
     margin-left: 24px;
     position: relative;
@@ -28,7 +30,7 @@
         }
       }
       svg {
-        padding-bottom: 2px;
+        margin-top: 3px;
         border-bottom: 1px solid $fiol;
       }
     }

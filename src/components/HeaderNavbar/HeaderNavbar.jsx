@@ -25,7 +25,7 @@ const HeaderNavbar = ({ month, compareTarget, posts }) => {
 
   useEffect(() => {
     const filteredModal = filterModal(searchTerm, posts);
-    console.log(filteredModal);
+    // console.log(filteredModal);
     setModalList(filteredModal);
   }, [searchTerm, month]);
 
