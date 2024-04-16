@@ -63,3 +63,11 @@
 .right {
   justify-content: end;
 }
+.hover {
+  &:hover {
+    transition: all 0.3s ease;
+    background-color: $blue200;
+    color: $neutral100;
+    cursor: pointer;
+  }
+}

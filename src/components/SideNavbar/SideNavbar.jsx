@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import Chat from '../../resources/image/icon/Chat';
+import EducationalActivities from '../../resources/image/icon/EducationalActivities';
 import PersonalManagement from '../../resources/image/icon/PersonalManagement';
 import Main from '../../resources/image/icon/Main';
 import classes from './SideNavbar.module.scss';
@@ -35,11 +35,11 @@ const SideNavbar = ({ posts }) => {
             <span>Главная</span>
           </NavLink>
           <NavLink to="calendar" className={setActive}>
-            <PersonalManagement />
+            <EducationalActivities />
             <span>Календарь</span>
           </NavLink>
-          <NavLink to="chat" className={setActive}>
-            <Chat />
+          <NavLink to="contacts" className={setActive}>
+            <PersonalManagement />
             <span>Контакты</span>
           </NavLink>
         </div>
@@ -65,11 +65,11 @@ const SideNavbar = ({ posts }) => {
               <span>Главная</span>
             </NavLink>
             <NavLink to="calendar" className={setActive} onClick={toggleMenu}>
-              <PersonalManagement />
+              <EducationalActivities />
               <span>Календарь</span>
             </NavLink>
-            <NavLink to="chat" className={setActive} onClick={toggleMenu}>
-              <Chat />
+            <NavLink to="contacts" className={setActive} onClick={toggleMenu}>
+              <PersonalManagement />
               <span>Контакты</span>
             </NavLink>
           </div>

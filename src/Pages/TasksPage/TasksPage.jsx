@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classes from './Tasks.module.scss';
+
 import Card from '../../components/Card/Card';
-import MyButton from '../../components/Button/Button';
 import MyModal from '../../components/Modal/Modal';
 import Modal from './components/Modal/Modal';
-
 import Table from '../../components/Table/Table';
 import Thead from '../../components/Table/components/Thead/Thead';
 import Th from '../../components/Table/components/Th/Th';
@@ -15,37 +14,31 @@ import Td from '../../components/Table/components/Td/Td';
 import Accordion from './components/Accordion/Accordion';
 
 const TasksPage = ({ modal, setModal, task, setTask }) => {
-  // const [isContentVisible, setContentVisibility] = useState([
-  //   true,
-  //   false,
-  //   false,
-  // ]);
-  console.log(task);
+  const [taskToUpdate, setTaskToUpdate] = useState(null);
+  const [activeAccordionIndex, setActiveAccordionIndex] = useState(null);
+
   const onClick = () => {
     return setModal(true);
   };
-  //   const [taskName, setTaskName] = useState('');
-  //   const [description, setDescription] = useState('');
+
+  const toggleAccordion = (index) => {
+    if (index === activeAccordionIndex) {
+      setActiveAccordionIndex(null);
+    } else {
+      setActiveAccordionIndex(index);
+    }
+  };
+
+  const handleRowClick = (id) => {
+    const clickedTask = task.find((task) => task.id === id);
+    setTaskToUpdate(clickedTask);
+    setModal(true);
+  };
+
   return (
     <>
       <div className={classes.tasks_page}>
         <Card style={{ width: '100%', padding: '20px 30px', height: '100%' }}>
-          {/* <div className={classes.button_wrapper}>
-            <MyButton onClick={onClick}>Добавить задачу</MyButton>
-          </div>
-          <div className={classes.container}>
-            {task.map((i) => (
-              <Card hover style={{ height: '200px', width: '150px' }}>
-                <div className={classes.card_wrapper}>
-                  <div className={classes.title_wrapper}>
-                    <div>{i.taskName}</div>
-                  </div>
-                  <div>{i.description}</div>
-                </div>
-              </Card>
-            ))}
-          </div> */}
-
           <Table>
             <Thead>
               <Th textAlign={'left'}>Название задачи</Th>
@@ -54,147 +47,88 @@ const TasksPage = ({ modal, setModal, task, setTask }) => {
               <Th textAlign={'center'}>От кого</Th>
               <Th textAlign={'right'}>Кому</Th>
             </Thead>
-            <Accordion title={'Все задачи'} AllTasks>
+            <Accordion
+              title={'Все задачи'}
+              AllTasks
+              isActive={activeAccordionIndex === 0}
+              toggleAccordion={() => toggleAccordion(0)}
+              modalActive={onClick}
+            >
               <Tbody>
-                {/* {task.map((i) => (
-                  <Tr>
+                {task.map((i, index) => (
+                  <Tr hover key={index} onClick={() => handleRowClick(i.id)}>
                     <Td textAlign={'left'}>{i.task_name}</Td>
                     <Td textAlign={'center'}>{i.begin_date}</Td>
                     <Td textAlign={'center'}>{i.description}</Td>
                     <Td textAlign={'center'}>-</Td>
                     <Td textAlign={'right'}>-</Td>
                   </Tr>
-                ))} */}
+                ))}
+              </Tbody>
+            </Accordion>
+            <Accordion
+              title={'Мои задачи'}
+              isActive={activeAccordionIndex === 1}
+              toggleAccordion={() => toggleAccordion(1)}
+            >
+              <Tbody>
                 <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
+                  <Td textAlign={'left'}>Data1</Td>
+                  <Td textAlign={'center'}>Data1</Td>
+                  <Td textAlign={'center'}>Data1</Td>
+                  <Td textAlign={'center'}>Data1</Td>
+                  <Td textAlign={'right'}>Data1</Td>
                 </Tr>
                 <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
+                  <Td textAlign={'left'}>Data1</Td>
+                  <Td textAlign={'center'}>Data1</Td>
+                  <Td textAlign={'center'}>Data1</Td>
+                  <Td textAlign={'center'}>Data1</Td>
+                  <Td textAlign={'right'}>Data1</Td>
                 </Tr>
               </Tbody>
             </Accordion>
-            <Accordion title={'Мои задачи'}>
+            <Accordion
+              title={'Контактам'}
+              isActive={activeAccordionIndex === 2}
+              toggleAccordion={() => toggleAccordion(2)}
+            >
               <Tbody>
                 <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
+                  <Td textAlign={'left'}>Data2</Td>
+                  <Td textAlign={'center'}>Data2</Td>
+                  <Td textAlign={'center'}>Data2</Td>
+                  <Td textAlign={'center'}>Data2</Td>
+                  <Td textAlign={'right'}>Data2</Td>
                 </Tr>
                 <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
+                  <Td textAlign={'left'}>Data2</Td>
+                  <Td textAlign={'center'}>Data2</Td>
+                  <Td textAlign={'center'}>Data2</Td>
+                  <Td textAlign={'center'}>Data2</Td>
+                  <Td textAlign={'right'}>Data2</Td>
                 </Tr>
               </Tbody>
             </Accordion>
-            <Accordion title={'Контактам'}>
+            <Accordion
+              title={'Выполненые задачи'}
+              isActive={activeAccordionIndex === 3}
+              toggleAccordion={() => toggleAccordion(3)}
+            >
               <Tbody>
                 <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
+                  <Td textAlign={'left'}>Data3</Td>
+                  <Td textAlign={'center'}>Data3</Td>
+                  <Td textAlign={'center'}>Data3</Td>
+                  <Td textAlign={'center'}>Data3</Td>
+                  <Td textAlign={'right'}>Data3</Td>
                 </Tr>
                 <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-              </Tbody>
-            </Accordion>
-            <Accordion title={'Выполненые задачи'}>
-              <Tbody>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
-                </Tr>
-                <Tr>
-                  <Td textAlign={'left'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'center'}>Data 1</Td>
-                  <Td textAlign={'right'}>Data 1</Td>
+                  <Td textAlign={'left'}>Data3</Td>
+                  <Td textAlign={'center'}>Data3</Td>
+                  <Td textAlign={'center'}>Data3</Td>
+                  <Td textAlign={'center'}>Data3</Td>
+                  <Td textAlign={'right'}>Data3</Td>
                 </Tr>
               </Tbody>
             </Accordion>
@@ -202,7 +136,14 @@ const TasksPage = ({ modal, setModal, task, setTask }) => {
         </Card>
       </div>
       <MyModal modal={modal} setModal={setModal}>
-        <Modal setModal={setModal} setTask={setTask} />
+        <Modal
+          modal={modal}
+          task={task}
+          setModal={setModal}
+          setTask={setTask}
+          taskToUpdate={taskToUpdate}
+          setTaskToUpdate={setTaskToUpdate}
+        />
       </MyModal>
     </>
   );

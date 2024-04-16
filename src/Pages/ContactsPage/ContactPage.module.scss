@@ -1,0 +1,10 @@
+@import '../../style/variables.scss';
+
+.tasks_page {
+  .button_wrapper {
+    margin-bottom: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+  }
+}

@@ -16,19 +16,20 @@ import { getToken } from './utils/token/token';
 import Profile from './Pages/ProfilePage/ProfilePage';
 import TasksPage from './Pages/TasksPage/TasksPage';
 import getDataTask from './services/getDataTask.service';
+import ContactsPage from './Pages/ContactsPage/ContactsPage';
+import getUser from './services/getUser.service';
 
 function App() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [task, setTask] = useState([]);
+  const [users, setUsers] = useState([]);
+
   const [target, setTarget] = useState(null);
   const [modal, setModal] = useState(false);
   const [month, setMonth] = useState(new Date().getMonth());
   const [posts, setPosts] = useState([]);
   const [now, setNow] = useState(new Date().getFullYear());
-  console.log(`${month}${now}`);
-
-  console.log(`${month}${new Date().getFullYear()}`);
   const compareTarget = (e) => {
     setTarget(e);
     posts.map((i) => {
@@ -64,7 +65,20 @@ function App() {
       }
     };
     setValues();
-  }, []);
+  }, [modal]);
+
+  useEffect(() => {
+    const setValues = async () => {
+      try {
+        const dataUser = await getUser();
+        console.log(dataUser.user);
+        setUsers(dataUser.user);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    setValues();
+  }, [modal]);
 
   useEffect(() => {
     if (
@@ -120,7 +134,17 @@ function App() {
                 />
               }
             />
-            <Route path="chat" element={<></>} />
+            <Route
+              path="contacts"
+              element={
+                <ContactsPage
+                  users={users}
+                  setUsers={setUsers}
+                  modal={modal}
+                  setModal={setModal}
+                />
+              }
+            />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         )}

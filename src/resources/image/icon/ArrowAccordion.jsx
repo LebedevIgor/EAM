@@ -11,7 +11,8 @@ const ArrowAccordion = ({ isContentVisible }) => {
       fill="none"
       viewBox="0 0 24 24"
       style={{
-        transform: ` ${isContentVisible ? 'rotate(0)' : 'rotate(270deg)'}`,
+        transition: 'all 0.3s ease',
+        transform: ` ${isContentVisible ? 'rotate(0)' : 'rotate(-90deg)'}`,
       }}
     >
       <path

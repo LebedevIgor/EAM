@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.efbb7ca7.css",
-    "main.js": "/static/js/main.33d9d2d8.js",
+    "main.css": "/static/css/main.45f8ce01.css",
+    "main.js": "/static/js/main.991346e9.js",
     "static/media/FedraSansPro-Normal.ttf": "/static/media/FedraSansPro-Normal.0a77af69afdaac600420.ttf",
     "static/media/FedraSansPro-Normal.woff": "/static/media/FedraSansPro-Normal.74adb7474eeaec92481c.woff",
     "static/media/FedraSansPro-Normal.woff2": "/static/media/FedraSansPro-Normal.d3506931251ce72e2c6d.woff2",
     "index.html": "/index.html",
-    "main.efbb7ca7.css.map": "/static/css/main.efbb7ca7.css.map",
-    "main.33d9d2d8.js.map": "/static/js/main.33d9d2d8.js.map"
+    "main.45f8ce01.css.map": "/static/css/main.45f8ce01.css.map",
+    "main.991346e9.js.map": "/static/js/main.991346e9.js.map"
   },
   "entrypoints": [
-    "static/css/main.efbb7ca7.css",
-    "static/js/main.33d9d2d8.js"
+    "static/css/main.45f8ce01.css",
+    "static/js/main.991346e9.js"
   ]
 }
