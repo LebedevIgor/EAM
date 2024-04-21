@@ -10,16 +10,19 @@ import { modalInitialValue } from '../../InitialValues/modalInitialValue';
 import createDataTask from '../../../../services/createDataTask.service';
 import updateDataTask from '../../../../services/updateDataTask.service';
 import deleteDataTask from '../../../../services/deleteDataTask.service';
+import FormikSelect from '../../../../components/FormikSelect/FormikSelect';
+import { optionsPriority, optionsСondition } from '../../InitialValues/options';
+import FormikInputType from '../../../../components/FormikInputType/FormikInputType';
 
 const Modal = ({
   setModal,
   setTask,
   task,
+  contacts,
   setTaskToUpdate,
   taskToUpdate,
   modal,
 }) => {
-  const [idCount, setIdCount] = useState(0);
   useEffect(() => {
     if (!modal) {
       setTaskToUpdate(null);
@@ -27,20 +30,20 @@ const Modal = ({
   }, [modal, setTaskToUpdate]);
 
   const addTasks = async (values) => {
-    setIdCount(idCount + 1);
     const newTask = {
       is_private: 'true',
-      priority: '1',
       remind: 'true',
-      begin_date: '08.04.2024',
-      complete_perc: '0',
-      condition: '0',
-      date_remind: '08.04.2024',
-      end_date: '08.04.2024',
+      begin_date: values.begin_date,
+      complete_perc: values.complete_perc,
+      condition: values.condition,
+      date_remind: '2024-04-12',
+      end_date: '2024-04-12',
+      priority: values.priority,
       description: values.description,
       task_name: values.task_name,
+      task_particip: [],
     };
-    // setTask();
+
     await createDataTask(newTask);
     setTaskToUpdate(null);
     setModal(false);
@@ -51,12 +54,13 @@ const Modal = ({
       ...taskToUpdate,
       description: values.description,
       task_name: values.task_name,
+      priority: values.priority,
+      begin_date: values.begin_date,
+      end_date: values.end_date,
+      complete_perc: values.complete_perc,
+      condition: values.condition,
     };
 
-    // const updatedTasks = task.map((task) =>
-    //   task.id === taskToUpdate.id ? updatedTask : task
-    // );
-    // setTask(updatedTasks);
     await updateDataTask(updatedTask);
     setTaskToUpdate(null);
     setModal(false);
@@ -90,6 +94,31 @@ const Modal = ({
               <div className="main-modal-container">
                 <FormikInput name="task_name" label="Название задачи" />
                 <FormikInput name="description" label="Описание" />
+                <FormikSelect
+                  name="priority"
+                  label={'Важность'}
+                  options={optionsPriority}
+                />
+                <FormikInputType
+                  name="begin_date"
+                  label="Дата начала"
+                  type="date"
+                />
+                <FormikInputType
+                  name="end_date"
+                  label="Дата конца"
+                  type="date"
+                />
+                <FormikInputType
+                  name="complete_perc"
+                  label="Процент выполнения"
+                  type="number"
+                />
+                <FormikSelect
+                  name="condition"
+                  label={'Состояние'}
+                  options={optionsСondition}
+                />
               </div>
 
               <div className="wrapper">
@@ -116,6 +145,31 @@ const Modal = ({
               <div className="main-modal-container">
                 <FormikInput name="task_name" label="Название задачи" />
                 <FormikInput name="description" label="Описание" />
+                <FormikSelect
+                  name="priority"
+                  label={'Важность'}
+                  options={optionsPriority}
+                />
+                <FormikInputType
+                  name="begin_date"
+                  label="Дата начала"
+                  type="date"
+                />
+                <FormikInputType
+                  name="end_date"
+                  label="Дата конца"
+                  type="date"
+                />
+                <FormikInputType
+                  name="complete_perc"
+                  label="Процент выполнения"
+                  type="number"
+                />
+                <FormikSelect
+                  name="condition"
+                  label={'Состояние'}
+                  options={optionsСondition}
+                />
               </div>
 
               <div className="wrapper">

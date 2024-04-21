@@ -71,3 +71,10 @@
     cursor: pointer;
   }
 }
+
+.active {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: $blue300;
+  color: $neutral100;
+}

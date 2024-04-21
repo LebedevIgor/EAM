@@ -19,6 +19,7 @@ const createDataTask = async (values) => {
           priority: values.priority,
           remind: values.remind,
           task_name: values.task_name,
+          task_particip: values.task_particip,
         },
         success: true,
       },

@@ -18,12 +18,20 @@ import TasksPage from './Pages/TasksPage/TasksPage';
 import getDataTask from './services/getDataTask.service';
 import ContactsPage from './Pages/ContactsPage/ContactsPage';
 import getUser from './services/getUser.service';
+import getNewUser from './services/getNewUser.service';
+import getInvitesUser from './services/getInvitesUser.service';
 
 function App() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [task, setTask] = useState([]);
+  const [contacts, setContacts] = useState([]);
   const [users, setUsers] = useState([]);
+  const [invitesUsers, setInvitesUsers] = useState([]);
+  const [modalUserInfo, setModalUserInfo] = useState(false);
+  const [modalInvite, setModalInvite] = useState(false);
+
+  const [modalContacts, setModalContacts] = useState(false);
 
   const [target, setTarget] = useState(null);
   const [modal, setModal] = useState(false);
@@ -70,15 +78,26 @@ function App() {
   useEffect(() => {
     const setValues = async () => {
       try {
-        const dataUser = await getUser();
-        console.log(dataUser.user);
-        setUsers(dataUser.user);
+        const invitesUsers = await getInvitesUser();
+        setInvitesUsers(invitesUsers.users);
       } catch (error) {
         console.error('Error:', error);
       }
     };
     setValues();
-  }, [modal]);
+  }, [modalInvite]);
+
+  useEffect(() => {
+    const setValues = async () => {
+      try {
+        const dataUser = await getUser();
+        setContacts(dataUser.user);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    setValues();
+  }, [modalContacts, modalUserInfo, modalInvite]);
 
   useEffect(() => {
     if (
@@ -90,6 +109,18 @@ function App() {
       navigate('/authorization/register');
     }
   }, [token, navigate]);
+
+  useEffect(() => {
+    const setValues = async () => {
+      try {
+        const dataUser = await getNewUser();
+        setUsers(dataUser.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    setValues();
+  }, [modalContacts]);
 
   return (
     <div className="app">
@@ -112,6 +143,7 @@ function App() {
                   setModal={setModal}
                   task={task}
                   setTask={setTask}
+                  contacts={contacts}
                 />
               }
             />
@@ -138,10 +170,16 @@ function App() {
               path="contacts"
               element={
                 <ContactsPage
+                  contacts={contacts}
+                  setContacts={setContacts}
                   users={users}
-                  setUsers={setUsers}
-                  modal={modal}
-                  setModal={setModal}
+                  modal={modalContacts}
+                  setModal={setModalContacts}
+                  modalUserInfo={modalUserInfo}
+                  setModalUserInfo={setModalUserInfo}
+                  modalInvite={modalInvite}
+                  setModalInvite={setModalInvite}
+                  invitesUsers={invitesUsers}
                 />
               }
             />

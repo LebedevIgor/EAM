@@ -3,16 +3,10 @@ import { getToken } from '../utils/token/token';
 
 const token = getToken();
 
-const addUser = async (values) => {
+const getInvitesUser = async () => {
   try {
-    const response = await axios.post(
-      'http://127.0.0.1:5000/contacts/add',
-      {
-        data: {
-          ids: values,
-        },
-        success: true,
-      },
+    const response = await axios.get(
+      'http://127.0.0.1:5000/contacts/requests',
       {
         headers: {
           'Content-Type': 'application/json',
@@ -20,10 +14,11 @@ const addUser = async (values) => {
         },
       }
     );
+
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
 
-export default addUser;
+export default getInvitesUser;

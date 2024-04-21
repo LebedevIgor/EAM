@@ -3,13 +3,14 @@ import { getToken } from '../utils/token/token';
 
 const token = getToken();
 
-const addUser = async (values) => {
+const confirmUser = async (values) => {
   try {
     const response = await axios.post(
-      'http://127.0.0.1:5000/contacts/add',
+      'http://127.0.0.1:5000/contacts/requests/confirm',
       {
         data: {
-          ids: values,
+          id: values.id,
+          status: values.status,
         },
         success: true,
       },
@@ -26,4 +27,4 @@ const addUser = async (values) => {
   }
 };
 
-export default addUser;
+export default confirmUser;

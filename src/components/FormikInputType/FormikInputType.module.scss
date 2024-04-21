@@ -1,0 +1,31 @@
+.formik_input_type {
+  margin-top: 20px;
+  width: 100%;
+  position: relative;
+
+  input {
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px 15px;
+    background: #f5f5f5;
+    border: 1px solid #e2e2e2;
+    color: #353535;
+    border-radius: 6px;
+    font-size: 18px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    &:focus {
+      outline: 0.5px solid black;
+    }
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
+  }
+}
+
+.error {
+  position: absolute;
+  color: #e53e3e;
+}

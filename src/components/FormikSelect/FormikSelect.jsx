@@ -1,8 +1,8 @@
 import { ErrorMessage, Field } from 'formik';
 import React from 'react';
-import classes from './MySelectAuth.module.scss';
+import classes from './FormikSelect.module.scss';
 
-const FormikSelect = ({ label, options, name }) => {
+const FormikSelect = ({ label, options, name, isMulti }) => {
   return (
     <div className={classes.formik_select}>
       <div className={classes.wrapper}>

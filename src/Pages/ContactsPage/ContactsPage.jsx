@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classes from './ContactPage.module.scss';
 
@@ -12,67 +12,89 @@ import Td from '../../components/Table/components/Td/Td';
 import MyButton from '../../components/Button/Button';
 import MyModal from '../../components/Modal/Modal';
 import ModalAddUser from './components/ModalAddUser/ModalAddUser';
+import ModalUser from './components/ModalUser/ModalUser';
+import ModalAcceptInvites from './components/ModalAcceptInvites/ModalAcceptInvites';
 
-const ContactsPage = ({ users, setUsers, modal, setModal }) => {
-  console.log(users);
-  const userData = [
-    { name: 'asd', fam: 'asdasd', otch: 'asd', login: 'asdasd', email: 'asd' },
-  ];
+const ContactsPage = ({
+  contacts,
+  modal,
+  setModal,
+  users,
+  modalUserInfo,
+  setModalUserInfo,
+  modalInvite,
+  setModalInvite,
+  invitesUsers,
+}) => {
+  const [selectedUser, setSelectedUser] = useState(null);
+
   const onClick = () => {
     return setModal(true);
   };
+  const onClickInvitesModal = () => {
+    return setModalInvite(true);
+  };
+
+  const onClickModalUser = (user) => {
+    setSelectedUser(user);
+    setModalUserInfo(true);
+  };
+
   return (
     <>
       <div className={classes.tasks_page}>
         <Card style={{ width: '100%', padding: '20px 30px', height: '100%' }}>
           <div className={classes.button_wrapper}>
             <MyButton onClick={onClick}>Добавить</MyButton>
-            <MyButton>Приглашения</MyButton>
+            <MyButton onClick={onClickInvitesModal}>Приглашения</MyButton>
           </div>
-          <Table>
-            <Thead>
-              <Th textAlign={'left'}>Фамилия</Th>
-              <Th textAlign={'center'}>Имя</Th>
-              <Th textAlign={'center'}>Отчество</Th>
-              <Th textAlign={'center'}>Логин</Th>
-              <Th textAlign={'right'}>Почта</Th>
-            </Thead>
+          {contacts.length > 0 ? (
+            <Table>
+              <Thead>
+                <Th textAlign={'left'}>Фамилия</Th>
+                <Th textAlign={'center'}>Имя</Th>
+                <Th textAlign={'center'}>Отчество</Th>
+                <Th textAlign={'center'}>Логин</Th>
+                <Th textAlign={'right'}>Почта</Th>
+              </Thead>
 
-            <Tbody>
-              {users.map((item, index) => (
-                <Tr hover key={index}>
-                  <Td textAlign={'left'}>{item.name}</Td>
-                  <Td textAlign={'center'}>{item.surname}</Td>
-                  <Td textAlign={'center'}>{item.patronymic}</Td>
-                  <Td textAlign={'center'}>{item.username}</Td>
-                  <Td textAlign={'right'}>{item.email}</Td>
-                </Tr>
-              ))}
-              {/* <Tr hover>
-                <Td textAlign={'left'}>Петров</Td>
-                <Td textAlign={'center'}>Иван</Td>
-                <Td textAlign={'center'}>Иваныч</Td>
-                <Td textAlign={'center'}>Ivan</Td>
-                <Td textAlign={'right'}>example@mail.ru</Td>
-              </Tr>
-              <Tr hover>
-                <Td textAlign={'left'}>Иванов</Td>
-                <Td textAlign={'center'}>Петр</Td>
-                <Td textAlign={'center'}>Павлович</Td>
-                <Td textAlign={'center'}>Petro</Td>
-                <Td textAlign={'right'}>examplePetro@mail.ru</Td>
-              </Tr> */}
-            </Tbody>
-          </Table>
+              <Tbody>
+                {contacts.map((item, index) => (
+                  <Tr hover key={index} onClick={() => onClickModalUser(item)}>
+                    <Td textAlign={'left'}>{item.surname}</Td>
+                    <Td textAlign={'center'}>{item.name}</Td>
+                    <Td textAlign={'center'}>{item.patronymic}</Td>
+                    <Td textAlign={'center'}>{item.username}</Td>
+                    <Td textAlign={'right'}>{item.email}</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          ) : (
+            <div style={{ textAlign: 'center', color: '#585858' }}>
+              Ваш список контактов пуст
+            </div>
+          )}
         </Card>
       </div>
       <MyModal modal={modal} setModal={setModal}>
-        <ModalAddUser
-          modal={modal}
-          setModal={setModal}
-          setUser={setUsers}
-          users={users}
+        <ModalAddUser modal={modal} setModal={setModal} users={users} />
+      </MyModal>
+      <MyModal modal={modalInvite} setModal={setModalInvite}>
+        <ModalAcceptInvites
+          modal={modalInvite}
+          invitesUsers={invitesUsers}
+          setModal={setModalInvite}
         />
+      </MyModal>
+      <MyModal modal={modalUserInfo} setModal={setModalUserInfo}>
+        {selectedUser && (
+          <ModalUser
+            user={selectedUser}
+            modal={modalUserInfo}
+            setModal={setModalUserInfo}
+          />
+        )}
       </MyModal>
     </>
   );
