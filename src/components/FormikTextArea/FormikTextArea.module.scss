@@ -1,8 +1,6 @@
-.formik_input_type {
+.formik_text_area {
   width: 100%;
-  position: relative;
-
-  input {
+  textarea {
     width: 100%;
     margin-top: 5px;
     padding: 5px 15px;
@@ -13,11 +11,12 @@
     font-size: 18px;
     margin-bottom: 5px;
     box-sizing: border-box;
+    resize: none;
+    height: 100px;
     &:focus {
       outline: 0.5px solid black;
     }
   }
-
   label {
     display: block;
     font-size: 16px;

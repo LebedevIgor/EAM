@@ -13,6 +13,8 @@ import deleteDataTask from '../../../../services/deleteDataTask.service';
 import FormikSelect from '../../../../components/FormikSelect/FormikSelect';
 import { optionsPriority, optionsСondition } from '../../InitialValues/options';
 import FormikInputType from '../../../../components/FormikInputType/FormikInputType';
+import Select from 'react-select';
+import FormikTextArea from '../../../../components/FormikTextArea/FormikTextArea';
 
 const Modal = ({
   setModal,
@@ -23,8 +25,39 @@ const Modal = ({
   taskToUpdate,
   modal,
 }) => {
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [options, setOptions] = useState([]);
+
+  const handleMultiSelectChange = (selected) => {
+    setSelectedOptions(selected);
+  };
+
+  useEffect(() => {
+    if (contacts) {
+      setOptions(() =>
+        contacts.map((i) => ({
+          value: i.id,
+          label: `${i.surname} ${i.name} ${i.patronymic}`,
+        }))
+      );
+    }
+  }, [contacts, modal]);
+
+  useEffect(() => {
+    if (taskToUpdate && taskToUpdate.task_particip.length > 0) {
+      setSelectedOptions(() =>
+        taskToUpdate.task_particip.map((i) => ({
+          value: i.id,
+          label: i.label,
+        }))
+      );
+    }
+  }, [taskToUpdate, modal]);
+
   useEffect(() => {
     if (!modal) {
+      setSelectedOptions([]);
+
       setTaskToUpdate(null);
     }
   }, [modal, setTaskToUpdate]);
@@ -41,7 +74,7 @@ const Modal = ({
       priority: values.priority,
       description: values.description,
       task_name: values.task_name,
-      task_particip: [],
+      task_particip: selectedOptions,
     };
 
     await createDataTask(newTask);
@@ -59,6 +92,8 @@ const Modal = ({
       end_date: values.end_date,
       complete_perc: values.complete_perc,
       condition: values.condition,
+      task_particip: selectedOptions,
+      host_id: values.host_id,
     };
 
     await updateDataTask(updatedTask);
@@ -68,12 +103,20 @@ const Modal = ({
 
   const deleteTask = async () => {
     // const updatedTasks = task.filter((t) => t.id !== taskToUpdate.id);
-    let id = taskToUpdate.id;
-    await deleteDataTask(id);
+    const id = taskToUpdate.id;
+    const host_id = taskToUpdate.host_id;
+
+    await deleteDataTask(id, host_id);
     // setTask(updatedTasks);
     setTaskToUpdate(null);
     setModal(false);
   };
+
+  const testOptions = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
 
   return (
     <>
@@ -93,7 +136,6 @@ const Modal = ({
               </i>
               <div className="main-modal-container">
                 <FormikInput name="task_name" label="Название задачи" />
-                <FormikInput name="description" label="Описание" />
                 <FormikSelect
                   name="priority"
                   label={'Важность'}
@@ -119,6 +161,16 @@ const Modal = ({
                   label={'Состояние'}
                   options={optionsСondition}
                 />
+                <div style={{ width: '100%' }}>
+                  <Select
+                    placeholder={'Участники'}
+                    isMulti
+                    options={options}
+                    value={selectedOptions}
+                    onChange={handleMultiSelectChange}
+                  />
+                </div>
+                <FormikTextArea name="description" label="Описание" />
               </div>
 
               <div className="wrapper">
@@ -143,8 +195,11 @@ const Modal = ({
                 <Cross setModal={setModal} />
               </i>
               <div className="main-modal-container">
-                <FormikInput name="task_name" label="Название задачи" />
-                <FormikInput name="description" label="Описание" />
+                <FormikInput
+                  name="task_name"
+                  label="Название задачи"
+                  textarea
+                />
                 <FormikSelect
                   name="priority"
                   label={'Важность'}
@@ -170,8 +225,17 @@ const Modal = ({
                   label={'Состояние'}
                   options={optionsСondition}
                 />
+                <div style={{ width: '100%' }}>
+                  <Select
+                    placeholder={'Участники'}
+                    isMulti
+                    options={options}
+                    value={selectedOptions}
+                    onChange={handleMultiSelectChange}
+                  />
+                </div>
+                <FormikTextArea name="description" label="Описание" />
               </div>
-
               <div className="wrapper">
                 <Button type="submit">Готово</Button>
               </div>

@@ -46,7 +46,7 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
           >
             <Thead>
               <Th textAlign={'left'}>Название задачи</Th>
-              <Th textAlign={'center'}>Дата начала</Th>
+              <Th textAlign={'center'}>Дата конца</Th>
               <Th textAlign={'center'}>Описание</Th>
               <Th textAlign={'center'}>От кого</Th>
               <Th textAlign={'right'}>Кому</Th>
@@ -72,24 +72,34 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
                   modalActive={onClick}
                 >
                   <Tbody>
-                    {task.map((i, index) => {
-                      return i.task_particip.length === 0 &&
-                        i.condition !== 4 ? (
-                        <Tr
-                          hover
-                          key={index}
-                          onClick={() => handleRowClick(i.id)}
-                        >
-                          <Td textAlign={'left'}>{i.task_name}</Td>
-                          <Td textAlign={'center'}>
-                            {i.begin_date.split('-').reverse().join('-')}
-                          </Td>
-                          <Td textAlign={'center'}>{i.description}</Td>
-                          <Td textAlign={'center'}>-</Td>
-                          <Td textAlign={'right'}>Вам</Td>
-                        </Tr>
-                      ) : null;
-                    })}
+                    {task.some(
+                      (i) => i.task_particip.length === 0 && i.condition !== 4
+                    ) ? (
+                      task.map((i, index) => {
+                        if (i.task_particip.length === 0 && i.condition !== 4) {
+                          return (
+                            <Tr
+                              hover
+                              key={index}
+                              onClick={() => handleRowClick(i.id)}
+                            >
+                              <Td textAlign={'left'}>{i.task_name}</Td>
+                              <Td textAlign={'center'}>
+                                {i.end_date.split('-').reverse().join('-')}
+                              </Td>
+                              <Td textAlign={'center'}>{i.description}</Td>
+                              <Td textAlign={'center'}>{i.host_name}</Td>
+                              <Td textAlign={'right'}>Вам</Td>
+                            </Tr>
+                          );
+                        }
+                        return null;
+                      })
+                    ) : (
+                      <div style={{ textAlign: 'center', color: '#585858' }}>
+                        Задач для вас нет
+                      </div>
+                    )}
                   </Tbody>
                 </Accordion>
 
@@ -99,23 +109,36 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
                   toggleAccordion={() => toggleAccordion(2)}
                 >
                   <Tbody>
-                    {task.map((i, index) => {
-                      return i.task_particip.length > 0 && i.condition !== 4 ? (
-                        <Tr
-                          hover
-                          key={index}
-                          onClick={() => handleRowClick(i.id)}
-                        >
-                          <Td textAlign={'left'}>{i.task_name}</Td>
-                          <Td textAlign={'center'}>
-                            {i.begin_date.split('-').reverse().join('-')}
-                          </Td>
-                          <Td textAlign={'center'}>{i.description}</Td>
-                          <Td textAlign={'center'}>-</Td>
-                          <Td textAlign={'right'}>-</Td>
-                        </Tr>
-                      ) : null;
-                    })}
+                    {task.some(
+                      (i) => i.task_particip.length > 0 && i.condition !== 4
+                    ) ? (
+                      task.map((i, index) => {
+                        if (i.task_particip.length > 0 && i.condition !== 4) {
+                          return (
+                            <Tr
+                              hover
+                              key={index}
+                              onClick={() => handleRowClick(i.id)}
+                            >
+                              <Td textAlign={'left'}>{i.task_name}</Td>
+                              <Td textAlign={'center'}>
+                                {i.end_date.split('-').reverse().join('-')}
+                              </Td>
+                              <Td textAlign={'center'}>{i.description}</Td>
+                              <Td textAlign={'center'}>{i.host_name}</Td>
+                              <Td textAlign={'right'}>
+                                {i.task_particip.map((item) => item.label)}
+                              </Td>
+                            </Tr>
+                          );
+                        }
+                        return null;
+                      })
+                    ) : (
+                      <div style={{ textAlign: 'center', color: '#585858' }}>
+                        Задач для контаков нет
+                      </div>
+                    )}
                   </Tbody>
                 </Accordion>
               </div>
@@ -127,48 +150,34 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
                   toggleAccordion={() => toggleAccordion(3)}
                 >
                   <Tbody>
-                    {task.map((i, index) => {
-                      return i.condition === 4 ? (
-                        <Tr
-                          hover
-                          key={index}
-                          onClick={() => handleRowClick(i.id)}
-                        >
-                          <Td textAlign={'left'}>{i.task_name}</Td>
-                          <Td textAlign={'center'}>
-                            {i.begin_date.split('-').reverse().join('-')}
-                          </Td>
-                          <Td textAlign={'center'}>{i.description}</Td>
-                          <Td textAlign={'center'}>
-                            {contacts.length === 0 ||
-                            !contacts.some((item) => item.id === i.host_id)
-                              ? 'От вас'
-                              : contacts.find((item) => item.id === i.host_id)
-                                  ?.username || 'От вас'}
-                          </Td>
-                          <Td textAlign={'center'}>
-                            {contacts.length === 0 ||
-                            !contacts.some((item) => item.id === i.host_id)
-                              ? i.task_particip
-                                  .map((participId) => {
-                                    const participant = contacts.find(
-                                      (contact) => contact.id === participId
-                                    );
-                                    return participant
-                                      ? participant.username
-                                      : null;
-                                  })
-                                  .filter(Boolean)
-                                  .join(' ')
-                              : contacts.map((item, index) => {
-                                  return item.id !== i.host_id
-                                    ? 'Вы '
-                                    : item.username;
-                                })}
-                          </Td>
-                        </Tr>
-                      ) : null;
-                    })}
+                    {task.some((i) => i.condition === 4) ? (
+                      task.map((i, index) => {
+                        if (i.condition === 4) {
+                          return (
+                            <Tr
+                              hover
+                              key={index}
+                              onClick={() => handleRowClick(i.id)}
+                            >
+                              <Td textAlign={'left'}>{i.task_name}</Td>
+                              <Td textAlign={'center'}>
+                                {i.end_date.split('-').reverse().join('-')}
+                              </Td>
+                              <Td textAlign={'center'}>{i.description}</Td>
+                              <Td textAlign={'center'}>{i.host_name}</Td>
+                              <Td textAlign={'right'}>
+                                {i.task_particip.map((item) => item.label)}
+                              </Td>
+                            </Tr>
+                          );
+                        }
+                        return null;
+                      })
+                    ) : (
+                      <div style={{ textAlign: 'center', color: '#585858' }}>
+                        Архив пуст
+                      </div>
+                    )}
                   </Tbody>
                 </Accordion>
               </div>

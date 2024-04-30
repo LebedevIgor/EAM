@@ -21,6 +21,7 @@ const updateDataTask = async (values) => {
           remind: values.remind,
           task_name: values.task_name,
           task_particip: values.task_particip,
+          host_id: values.host_id,
         },
         success: true,
       },
