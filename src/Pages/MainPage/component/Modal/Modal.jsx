@@ -4,7 +4,7 @@ import Cross from '../../../../resources/image/icon/Cross';
 import Input from '../../../../components/Input/Input';
 import Button from '../../../../components/Button/Button';
 
-const Modal = ({ posts, setModal, target, setPosts, month, data }) => {
+const Modal = ({ posts, setModal, target, setPosts, data }) => {
   const timeArr = [
     '08:00 - 09:35 ',
     '09:45 - 11:20 ',

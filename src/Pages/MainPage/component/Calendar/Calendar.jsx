@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import CalendarTable from '../CalendarTable/CalendarTable';
 import MonthSelector from '../MonthSelector/MonthSelector';
 
@@ -12,16 +11,17 @@ const Calendar = ({
   month,
   setMonth,
   data,
-  setData,
   compareTarget,
   modal,
   setModal,
   target,
   now,
   setNow,
+  cellData,
+  setCellData,
 }) => {
   return (
-    <>
+    <div>
       <MonthSelector
         month={month}
         setMonth={setMonth}
@@ -29,24 +29,21 @@ const Calendar = ({
         setNow={setNow}
       />
       <CalendarTable
-        data={data}
-        month={month}
-        now={now}
         posts={posts}
-        setPosts={setPosts}
         compareTarget={compareTarget}
+        cellData={cellData}
+        setCellData={setCellData}
       />
-      <MyModal modal={modal} setModal={setModal}>
+      {/* <MyModal modal={modal} setModal={setModal}>
         <Modal
           posts={posts}
           setPosts={setPosts}
           setModal={setModal}
           target={target}
-          month={month}
           data={data}
         />
-      </MyModal>
-    </>
+      </MyModal> */}
+    </div>
   );
 };
 

@@ -12,6 +12,7 @@ import Tbody from '../../components/Table/components/Tbody/Tbody';
 import Tr from '../../components/Table/components/Tr/Tr';
 import Td from '../../components/Table/components/Td/Td';
 import Accordion from './components/Accordion/Accordion';
+import truncateText from '../../lib/truncateText';
 
 const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
   const [taskToUpdate, setTaskToUpdate] = useState(null);
@@ -83,12 +84,24 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
                               key={index}
                               onClick={() => handleRowClick(i.id)}
                             >
-                              <Td textAlign={'left'}>{i.task_name}</Td>
-                              <Td textAlign={'center'}>
-                                {i.end_date.split('-').reverse().join('-')}
+                              <Td textAlign={'left'}>
+                                {truncateText(i.task_name, 30)}
                               </Td>
-                              <Td textAlign={'center'}>{i.description}</Td>
-                              <Td textAlign={'center'}>{i.host_name}</Td>
+                              <Td textAlign={'center'}>
+                                {truncateText(
+                                  i.end_date.split('-').reverse().join('-'),
+                                  20
+                                )}
+                              </Td>
+                              <Td textAlign={'center'}>
+                                {truncateText(i.description, 40)}
+                              </Td>
+                              <Td
+                                textAlign={'center'}
+                                style={{ textAlign: 'center' }}
+                              >
+                                {truncateText(i.host_name, 20)}
+                              </Td>
                               <Td textAlign={'right'}>Вам</Td>
                             </Tr>
                           );
@@ -120,14 +133,34 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
                               key={index}
                               onClick={() => handleRowClick(i.id)}
                             >
-                              <Td textAlign={'left'}>{i.task_name}</Td>
-                              <Td textAlign={'center'}>
-                                {i.end_date.split('-').reverse().join('-')}
+                              <Td textAlign={'left'}>
+                                {truncateText(i.task_name, 30)}
                               </Td>
-                              <Td textAlign={'center'}>{i.description}</Td>
-                              <Td textAlign={'center'}>{i.host_name}</Td>
-                              <Td textAlign={'right'}>
-                                {i.task_particip.map((item) => item.label)}
+                              <Td textAlign={'center'}>
+                                {truncateText(
+                                  i.end_date.split('-').reverse().join('-'),
+                                  20
+                                )}
+                              </Td>
+                              <Td textAlign={'center'}>
+                                {truncateText(i.description, 40)}
+                              </Td>
+                              <Td
+                                textAlign={'center'}
+                                style={{ textAlign: 'center' }}
+                              >
+                                {truncateText(i.host_name, 30)}
+                              </Td>
+                              <Td
+                                textAlign={'right'}
+                                style={{ textAlign: 'center' }}
+                              >
+                                {truncateText(
+                                  i.task_particip
+                                    .map((item) => item.label)
+                                    .join(' '),
+                                  30
+                                )}
                               </Td>
                             </Tr>
                           );
@@ -159,14 +192,34 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
                               key={index}
                               onClick={() => handleRowClick(i.id)}
                             >
-                              <Td textAlign={'left'}>{i.task_name}</Td>
-                              <Td textAlign={'center'}>
-                                {i.end_date.split('-').reverse().join('-')}
+                              <Td textAlign={'left'}>
+                                {truncateText(i.task_name, 30)}
                               </Td>
-                              <Td textAlign={'center'}>{i.description}</Td>
-                              <Td textAlign={'center'}>{i.host_name}</Td>
-                              <Td textAlign={'right'}>
-                                {i.task_particip.map((item) => item.label)}
+                              <Td textAlign={'center'}>
+                                {truncateText(
+                                  i.end_date.split('-').reverse().join('-'),
+                                  20
+                                )}
+                              </Td>
+                              <Td textAlign={'center'}>
+                                {truncateText(i.description, 40)}
+                              </Td>
+                              <Td
+                                textAlign={'center'}
+                                style={{ textAlign: 'center' }}
+                              >
+                                {truncateText(i.host_name, 30)}
+                              </Td>
+                              <Td
+                                textAlign={'right'}
+                                style={{ textAlign: 'center' }}
+                              >
+                                {truncateText(
+                                  i.task_particip
+                                    .map((item) => item.label)
+                                    .join(' '),
+                                  30
+                                )}
                               </Td>
                             </Tr>
                           );

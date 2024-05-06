@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './CalendarTable.scss';
+import truncateText from '../../../../lib/truncateText';
+import addTaskCalendar from '../../../../services/addTaskCalendar';
 
-const CalendarTable = ({
-  month,
-  now,
-  posts,
-  setPosts,
-  compareTarget,
-  data,
-}) => {
-  const cellsAmount = 42;
-
+const CalendarTable = ({ posts, compareTarget, setCellData, cellData }) => {
   const weekDays = [
     'Понедельник',
     'Вторник',
@@ -22,71 +15,53 @@ const CalendarTable = ({
     'Воскресенье',
   ];
 
-  function getPrevDaysAmount() {
-    const firstWeekDayOfMonth = new Date(now, month, 1).getDay();
-    return firstWeekDayOfMonth ? firstWeekDayOfMonth - 1 : 6;
-  }
+  // console.log('Id задачи:', cellData.taskId);
+  // console.log('Name:', cellData.name);
+  // console.log('calendarCellId:', cellData.calendarCellId);
+  // useEffect(() => {
+  //   const setValues = async () => {
+  //     try {
+  //       await
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //     }
+  //   };
+  //   setValues();
+  // }, [cellData]);
 
-  useEffect(() => {
-    const cells = [];
-    const prevDaysAmount = getPrevDaysAmount();
-
-    for (let i = -prevDaysAmount; i < cellsAmount - prevDaysAmount; i++) {
-      const firstDayOfMonth = new Date(now, month, 1);
-      const targetDate = new Date(
-        firstDayOfMonth.setDate(firstDayOfMonth.getDate() + i)
-      ).toLocaleDateString('ru-RU');
-      cells.push(
-        cells.length < 7
-          ? `${weekDays[cells.length]}, ${targetDate.replace(/^0+/, '')}`
-          : targetDate.replace(/^0+/, '')
-      );
-    }
-
-    if (
-      posts.length === 0 ||
-      now !== new Date().getFullYear() ||
-      month !== new Date().getMonth() ||
-      month === new Date().getMonth()
-    ) {
-      const newPosts = cells.map((i) => {
-        return {
-          id: i.replace(/[^.\d]/g, ''),
-          event: '',
-          date: i,
-          participants: '',
-          descr: '',
-        };
-      });
-      setPosts(newPosts);
-    }
-  }, [month, now]);
-
-  let renderCalendar = posts.map((i) => {
-    const item =
-      data && data.length > 0
-        ? data.find((item) => item[0] === i.id.replace(/[^.\d]/g, ''))
-        : null;
-    const className = item ? 'day active' : 'day';
-    const text = item ? 'Посмотреть расписание' : '';
-    return (
-      <div
-        className={className}
-        id={i.id.replace(/[^.\d]/g, '')}
-        key={i.id.replace(/[^.\d]/g, '')}
-        onClick={(e) => compareTarget(e.currentTarget.id)}
-      >
-        <div className="numberDay">
-          {i.date.slice(0, -8).replace(/^0+/, '')}
+  let renderCalendar =
+    posts &&
+    posts.map((i) => {
+      return (
+        <div
+          className={'day'}
+          id={i.id}
+          key={i.id}
+          onClick={(e) => compareTarget(e.currentTarget.id)}
+          onDrop={(e) => {
+            e.preventDefault();
+            const data = JSON.parse(e.dataTransfer.getData('data'));
+            setCellData({
+              calendarCellId: i.id,
+              taskId: data.task_id,
+              name: data.name,
+            });
+            addTaskCalendar(data.name, data.task_id, i.id);
+          }}
+          onDragOver={(e) => e.preventDefault()}
+        >
+          <div className="numberDay">{i.id.slice(8)}</div>
+          <div className="events">
+            {i.events.map((event, index) => (
+              <div key={index} className="event">
+                {truncateText(event.name, 20)}
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="event">{i.event}</div>
-        <div className="participants">{i.participants}</div>
-        <div className="lesson">{text}</div>
-      </div>
-    );
-  });
-
-  return <div className="wrapper_calendar">{renderCalendar}</div>;
+      );
+    });
+  return <div className="wrapper_calendar">{posts && renderCalendar}</div>;
 };
 
 export default CalendarTable;

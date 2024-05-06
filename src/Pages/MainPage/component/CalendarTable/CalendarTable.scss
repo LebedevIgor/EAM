@@ -3,44 +3,53 @@
 .wrapper_calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  border-left: 1px solid $dark200;
-  border-top: 1px solid $dark200;
+  border-left: 1px solid $neutral200;
+  border-top: 1px solid $neutral200;
   border-radius: 10px;
   .day {
-    border-bottom: 1px solid $dark200;
-    border-right: 1px solid $dark200;
+    border-bottom: 1px solid $neutral200;
+    border-right: 1px solid $neutral200;
     text-align: center;
-    height: 80px;
-    width: 130px;
+    height: 125px;
+    width: 190px;
     font-size: 14px;
     cursor: pointer;
     transition: background-color 200ms, color 200ms;
     text-align: initial;
-    padding: 8px;
+    padding: 4px;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    &:hover {
-      background-color: $mainBlue;
-      * {
-        color: $light100 !important;
-      }
-    }
+    // &:hover {
+    //   background-color: $mainBlue;
+    //   * {
+    //     color: $light100 !important;
+    //   }
+    // }
     .numberDay {
       color: $dark100;
       line-height: 1em;
       font-size: 14px;
     }
+    .events {
+      display: flex;
+      flex-direction: column;
+      max-height: 93px;
+      overflow: auto;
+      margin-top: 4px;
+    }
     .event {
+      text-overflow: ellipsis;
+      white-space: nowrap;
       color: $dark200;
       line-height: 1em;
-      margin-top: 8px;
+      padding: 4px;
+      &:hover {
+        cursor: pointer;
+        background-color: $blue200;
+        color: $light100;
+        border-radius: 6px;
+      }
     }
-    .participants {
-      color: $dark200;
-      line-height: 1em;
-      margin-top: 8px;
-    }
+
     &:nth-child(1) {
       border-radius: 10px 0 0 0;
     }
@@ -55,28 +64,17 @@
       border-radius: 0 0 10px 0;
     }
   }
-  .active {
-    background-color: $neutral100;
-  }
-  .lesson {
-    margin-top: 8px;
-    color: $dark100 !important;
-    font-size: 10px;
-    text-align: center;
-  }
 }
 
-@media (max-width: 1290px) {
+@media (max-width: 1600px) {
   .wrapper_calendar {
     .day {
       height: 90px;
-      width: 100px;
       font-size: 12px;
-    }
-    .lesson {
-      margin-top: 8px;
-      font-size: 8px;
-      text-align: center;
+      width: 140px;
+      .events {
+        max-height: 60px;
+      }
     }
   }
 }

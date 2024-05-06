@@ -71,6 +71,14 @@
     cursor: pointer;
   }
 }
+.hover_last_child_fix {
+  &:last-child {
+    border: none;
+    &:hover {
+      border-radius: 0 0 6px 6px;
+    }
+  }
+}
 
 .active {
   cursor: pointer;

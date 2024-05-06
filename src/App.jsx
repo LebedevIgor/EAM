@@ -23,8 +23,9 @@ import getInvitesUser from './services/getInvitesUser.service';
 
 function App() {
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  const [data] = useState([]);
   const [task, setTask] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [contacts, setContacts] = useState([]);
   const [users, setUsers] = useState([]);
   const [invitesUsers, setInvitesUsers] = useState([]);
@@ -36,8 +37,8 @@ function App() {
   const [target, setTarget] = useState(null);
   const [modal, setModal] = useState(false);
   const [month, setMonth] = useState(new Date().getMonth());
-  const [posts, setPosts] = useState([]);
   const [now, setNow] = useState(new Date().getFullYear());
+  console.log(posts);
   const compareTarget = (e) => {
     setTarget(e);
     posts.map((i) => {
@@ -133,7 +134,11 @@ function App() {
         {token && (
           <Route
             path="/"
-            element={<Layout posts={posts} compareTarget={compareTarget} />}
+            element={
+              <Layout
+              // posts={posts} compareTarget={compareTarget}
+              />
+            }
           >
             <Route
               index
@@ -152,8 +157,6 @@ function App() {
               path="calendar"
               element={
                 <MainPage
-                  posts={posts}
-                  setPosts={setPosts}
                   month={month}
                   setMonth={setMonth}
                   data={data}
@@ -163,6 +166,9 @@ function App() {
                   target={target}
                   now={now}
                   setNow={setNow}
+                  posts={posts}
+                  setPosts={setPosts}
+                  task={task}
                 />
               }
             />

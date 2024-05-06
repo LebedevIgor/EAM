@@ -1,0 +1,12 @@
+@import '../../../../style/variables.scss';
+
+.wrapper_scroll {
+  max-height: 703px;
+  overflow: auto;
+}
+
+@media (max-width: 1600px) {
+  .wrapper_scroll {
+    max-height: 493px;
+  }
+}

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import classes from './MainPage.module.scss';
 
 import Calendar from './component/Calendar/Calendar';
 import Card from '../../components/Card/Card';
+
+import getCalendar from '../../services/getCalendar';
+import TableTasks from './component/TableTasks/TableTasks';
 
 const MainPage = ({
   data,
@@ -18,14 +21,32 @@ const MainPage = ({
   target,
   now,
   setNow,
+
+  task,
 }) => {
+  const [cellData, setCellData] = useState({
+    calendarCellId: '',
+    taskId: '',
+    name: '',
+  });
+
+  useEffect(() => {
+    const setValues = async () => {
+      try {
+        const posts = await getCalendar(month, now);
+
+        setPosts(posts);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    setValues();
+  }, [month, now, cellData, setPosts]);
   return (
     <div className={classes.main_page}>
       <Card
         style={{
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
         }}
       >
         <Calendar
@@ -41,16 +62,12 @@ const MainPage = ({
           target={target}
           now={now}
           setNow={setNow}
+          cellData={cellData}
+          setCellData={setCellData}
         />
-      </Card>
 
-      {/* <Card
-        style={{
-          margin: '20px 20px 0 20px',
-        }}
-      >
-        asd
-      </Card> */}
+        <TableTasks task={task} />
+      </Card>
     </div>
   );
 };
