@@ -14,10 +14,17 @@ import Td from '../../components/Table/components/Td/Td';
 import Accordion from './components/Accordion/Accordion';
 import truncateText from '../../lib/truncateText';
 
-const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
-  const [taskToUpdate, setTaskToUpdate] = useState(null);
+const TasksPage = ({
+  modal,
+  setModal,
+  task,
+  setTask,
+  contacts,
+  taskToUpdate,
+  setTaskToUpdate,
+  handleRowClick,
+}) => {
   const [activeAccordionIndex, setActiveAccordionIndex] = useState(null);
-
   const onClick = () => {
     return setModal(true);
   };
@@ -28,12 +35,6 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
     } else {
       setActiveAccordionIndex(index);
     }
-  };
-
-  const handleRowClick = (id) => {
-    const clickedTask = task.find((task) => task.id === id);
-    setTaskToUpdate(clickedTask);
-    setModal(true);
   };
 
   return (
@@ -82,7 +83,7 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
                             <Tr
                               hover
                               key={index}
-                              onClick={() => handleRowClick(i.id)}
+                              onClick={() => handleRowClick({ id: i.id })}
                             >
                               <Td textAlign={'left'}>
                                 {truncateText(i.task_name, 30)}
@@ -131,7 +132,7 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
                             <Tr
                               hover
                               key={index}
-                              onClick={() => handleRowClick(i.id)}
+                              onClick={() => handleRowClick({ id: i.id })}
                             >
                               <Td textAlign={'left'}>
                                 {truncateText(i.task_name, 30)}
@@ -190,7 +191,7 @@ const TasksPage = ({ modal, setModal, task, setTask, contacts }) => {
                             <Tr
                               hover
                               key={index}
-                              onClick={() => handleRowClick(i.id)}
+                              onClick={() => handleRowClick({ id: i.id })}
                             >
                               <Td textAlign={'left'}>
                                 {truncateText(i.task_name, 30)}

@@ -6,9 +6,8 @@ import Lupa from '../../resources/image/icon/Lupa';
 import classes from './HeaderNavbar.module.scss';
 import User from '../../resources/image/icon/User';
 
-const HeaderNavbar = ({ month, compareTarget, posts }) => {
-  const [modalList, setModalList] = useState(posts);
-  // console.log(posts);
+const HeaderNavbar = ({ task, handleRowClick }) => {
+  const [modalList, setModalList] = useState(task);
   const [searchTerm, setSearchTerm] = useState('');
 
   const navigate = useNavigate();
@@ -19,25 +18,24 @@ const HeaderNavbar = ({ month, compareTarget, posts }) => {
     }
 
     return listOfModal.filter((i) =>
-      i.event.toLowerCase().includes(searchText.toLowerCase())
+      i.task_name.toLowerCase().includes(searchText.toLowerCase())
     );
   };
 
   useEffect(() => {
-    const filteredModal = filterModal(searchTerm, posts);
-    // console.log(filteredModal);
+    const filteredModal = filterModal(searchTerm, task);
     setModalList(filteredModal);
-  }, [searchTerm, month]);
+  }, [searchTerm, task]);
 
   const handleExitClick = () => {
     localStorage.clear();
     navigate('/login');
   };
 
-  const handleClickList = (e) => {
-    navigate('/calendar');
+  const handleClickList = (taskId) => {
+    navigate(`/`);
     setSearchTerm('');
-    compareTarget(e);
+    handleRowClick({ id: taskId });
   };
 
   const renderModalList = () => {
@@ -55,19 +53,21 @@ const HeaderNavbar = ({ month, compareTarget, posts }) => {
 
     return (
       <div className={classes.dropdown}>
-        {modalList.map((modalItem, index) => (
+        {modalList.map(({ id, task_name, begin_date, end_date }, index) => (
           <div
             key={index}
             className={classes.search_card}
-            id={modalItem.id.replace(/[^.\d]/g, '')}
-            onClick={(e) => handleClickList(e.currentTarget.id)}
+            onClick={() => handleClickList(id)}
           >
-            Событие: {modalItem.event}
-            <br />
-            Дата:{' '}
-            {modalItem.date.length > 10
-              ? modalItem.date.split(',')[1]
-              : modalItem.date}
+            <div>
+              <strong>Задача:</strong> {task_name}
+            </div>
+            <div>
+              <strong>Дата начала:</strong> {begin_date}
+            </div>
+            <div>
+              <strong>Дата завершения:</strong> {end_date}
+            </div>
           </div>
         ))}
       </div>
@@ -80,7 +80,7 @@ const HeaderNavbar = ({ month, compareTarget, posts }) => {
         <label>
           <Lupa />
           <input
-            placeholder="Поиск заметок по событию"
+            placeholder="Поиск задач по названию"
             name="search"
             type="text"
             value={searchTerm}
@@ -91,12 +91,6 @@ const HeaderNavbar = ({ month, compareTarget, posts }) => {
         {renderModalList()}
       </div>
       <div className={classes.wrapper_icon}>
-        {/* <div className={classes.task}>
-          Актуальные события на {currentDate}:{' '}
-          {posts.map((i) =>
-            i.id === currentDate ? i.event || 'Событий нет' : null
-          )}
-        </div> */}
         <User />
         <Exit onClick={handleExitClick} />
       </div>

@@ -13,7 +13,6 @@
     height: 125px;
     width: 190px;
     font-size: 14px;
-    cursor: pointer;
     transition: background-color 200ms, color 200ms;
     text-align: initial;
     padding: 4px;
@@ -35,13 +34,30 @@
       max-height: 93px;
       overflow: auto;
       margin-top: 4px;
+      gap: 1px;
     }
-    .event {
+    .task {
       text-overflow: ellipsis;
       white-space: nowrap;
       color: $dark200;
       line-height: 1em;
       padding: 4px;
+      &:hover {
+        cursor: pointer;
+        background-color: $blue200;
+        color: $light100;
+        border-radius: 6px;
+      }
+    }
+    .event {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: $dark100;
+      line-height: 1em;
+      padding: 4px;
+
+      background-color: $blue100;
+      border-radius: 6px;
       &:hover {
         cursor: pointer;
         background-color: $blue200;

@@ -6,12 +6,12 @@ import '../../style/main.scss';
 import SideNavbar from '../SideNavbar/SideNavbar';
 import HeaderNavbar from '../HeaderNavbar/HeaderNavbar';
 
-const Layout = ({ posts, compareTarget }) => {
+const Layout = ({ task, handleRowClick }) => {
   return (
     <>
       <SideNavbar />
       <div className="content">
-        <HeaderNavbar posts={posts} compareTarget={compareTarget} />
+        <HeaderNavbar task={task} handleRowClick={handleRowClick} />
         <div className="container">
           <Outlet />
         </div>

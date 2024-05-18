@@ -1,17 +1,17 @@
 import axios from 'axios';
-
 import { getToken } from '../utils/token/token';
 
 const token = getToken();
 
-const getCalendar = async (month, now) => {
+const deleteTaskCalendar = async (id, host_id, task_id) => {
   try {
     const response = await axios.post(
-      'http://127.0.0.1:5000/calendar',
+      'http://127.0.0.1:5000/calendar/delete',
       {
-        data: {
-          month: `${month < 9 ? `0${month + 1}` : month + 1}`,
-          year: `${now}`,
+        events: {
+          id: id,
+          host_id: host_id,
+          task_id: task_id,
         },
         success: true,
       },
@@ -22,11 +22,10 @@ const getCalendar = async (month, now) => {
         },
       }
     );
-    console.log(response.data.cell_data);
-    return response.data.cell_data;
+    return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 };
 
-export default getCalendar;
+export default deleteTaskCalendar;

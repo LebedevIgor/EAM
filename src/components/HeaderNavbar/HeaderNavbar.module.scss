@@ -35,13 +35,14 @@
       }
     }
     .dropdown {
-      width: 238px;
+      width: 300px;
       position: absolute;
       margin-top: 25px;
       background: white;
       padding: 18px;
       box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 6px 0 rgba(0, 0, 0, 0.2);
       border-radius: 10px;
+      z-index: 10;
       .search_card {
         margin-bottom: 30px;
         padding: 6px;

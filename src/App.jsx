@@ -17,8 +17,8 @@ import Profile from './Pages/ProfilePage/ProfilePage';
 import TasksPage from './Pages/TasksPage/TasksPage';
 import getDataTask from './services/getDataTask.service';
 import ContactsPage from './Pages/ContactsPage/ContactsPage';
-import getUser from './services/getUser.service';
-import getNewUser from './services/getNewUser.service';
+import getUser from './services/getUser.service.service';
+import getNewUser from './services/getNewUser.service.service';
 import getInvitesUser from './services/getInvitesUser.service';
 
 function App() {
@@ -31,38 +31,21 @@ function App() {
   const [invitesUsers, setInvitesUsers] = useState([]);
   const [modalUserInfo, setModalUserInfo] = useState(false);
   const [modalInvite, setModalInvite] = useState(false);
+  const [taskToUpdate, setTaskToUpdate] = useState(null);
+  const [taskToView, setTaskToView] = useState(null);
+  const [clickDate, setClickDate] = useState('');
+  const [modalEvent, setModalEvent] = useState(false);
 
   const [modalContacts, setModalContacts] = useState(false);
 
-  const [target, setTarget] = useState(null);
   const [modal, setModal] = useState(false);
   const [month, setMonth] = useState(new Date().getMonth());
   const [now, setNow] = useState(new Date().getFullYear());
-  console.log(posts);
-  const compareTarget = (e) => {
-    setTarget(e);
-    posts.map((i) => {
-      if (i.id === e) {
-        return setModal(true);
-      } else {
-        return null;
-      }
-    });
-  };
 
   // ---------------------------------------------------------------------------
 
   const token = getToken();
   const location = useLocation().pathname;
-
-  // const setValues = async () => {
-  //   try {
-  //     const dataTasks = await getDataTask();
-  //     setTask(dataTasks.data);
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
 
   useEffect(() => {
     const setValues = async () => {
@@ -123,6 +106,23 @@ function App() {
     setValues();
   }, [modalContacts]);
 
+  const handleRowClick = ({ id, type, date, dataEvents }) => {
+    const clickedTask = task.find((task) => task.id === id);
+
+    if (type === 'view' && !dataEvents) {
+      setClickDate(date);
+      setTaskToView(clickedTask);
+      setModal(true);
+    } else if (dataEvents) {
+      setTaskToView(dataEvents);
+      console.log(dataEvents);
+      setModal(true);
+    } else {
+      setTaskToUpdate(clickedTask);
+      setModal(true);
+    }
+  };
+
   return (
     <div className="app">
       <Routes>
@@ -134,11 +134,7 @@ function App() {
         {token && (
           <Route
             path="/"
-            element={
-              <Layout
-              // posts={posts} compareTarget={compareTarget}
-              />
-            }
+            element={<Layout task={task} handleRowClick={handleRowClick} />}
           >
             <Route
               index
@@ -149,6 +145,9 @@ function App() {
                   task={task}
                   setTask={setTask}
                   contacts={contacts}
+                  taskToUpdate={taskToUpdate}
+                  setTaskToUpdate={setTaskToUpdate}
+                  handleRowClick={handleRowClick}
                 />
               }
             />
@@ -160,15 +159,21 @@ function App() {
                   month={month}
                   setMonth={setMonth}
                   data={data}
-                  compareTarget={compareTarget}
                   modal={modal}
                   setModal={setModal}
-                  target={target}
                   now={now}
                   setNow={setNow}
                   posts={posts}
                   setPosts={setPosts}
                   task={task}
+                  handleRowClick={handleRowClick}
+                  taskToView={taskToView}
+                  setTaskToView={setTaskToView}
+                  clickDate={clickDate}
+                  setClickDate={setClickDate}
+                  modalEvent={modalEvent}
+                  setModalEvent={setModalEvent}
+                  contacts={contacts}
                 />
               }
             />

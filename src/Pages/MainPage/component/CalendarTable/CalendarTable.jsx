@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-
+import React from 'react';
 import './CalendarTable.scss';
 import truncateText from '../../../../lib/truncateText';
-import addTaskCalendar from '../../../../services/addTaskCalendar';
+import addTaskCalendar from '../../../../services/addTaskCalendar.service';
 
-const CalendarTable = ({ posts, compareTarget, setCellData, cellData }) => {
+const CalendarTable = ({ posts, setCellData, handleRowClick }) => {
   const weekDays = [
     'Понедельник',
     'Вторник',
@@ -15,29 +14,14 @@ const CalendarTable = ({ posts, compareTarget, setCellData, cellData }) => {
     'Воскресенье',
   ];
 
-  // console.log('Id задачи:', cellData.taskId);
-  // console.log('Name:', cellData.name);
-  // console.log('calendarCellId:', cellData.calendarCellId);
-  // useEffect(() => {
-  //   const setValues = async () => {
-  //     try {
-  //       await
-  //     } catch (error) {
-  //       console.error('Error:', error);
-  //     }
-  //   };
-  //   setValues();
-  // }, [cellData]);
-
   let renderCalendar =
     posts &&
-    posts.map((i) => {
+    posts.map((i, index) => {
       return (
         <div
           className={'day'}
           id={i.id}
           key={i.id}
-          onClick={(e) => compareTarget(e.currentTarget.id)}
           onDrop={(e) => {
             e.preventDefault();
             const data = JSON.parse(e.dataTransfer.getData('data'));
@@ -50,17 +34,42 @@ const CalendarTable = ({ posts, compareTarget, setCellData, cellData }) => {
           }}
           onDragOver={(e) => e.preventDefault()}
         >
-          <div className="numberDay">{i.id.slice(8)}</div>
+          <div className="numberDay">
+            {i.id.slice(8)} {weekDays[index]}
+          </div>
           <div className="events">
-            {i.events.map((event, index) => (
-              <div key={index} className="event">
-                {truncateText(event.name, 20)}
-              </div>
-            ))}
+            {i.events.map((event, index) => {
+              if (event.is_events === true) {
+                return (
+                  <div
+                    key={index}
+                    className="event"
+                    onClick={() =>
+                      handleRowClick({ dataEvents: event, type: 'view' })
+                    }
+                  >
+                    {truncateText(event.name, 20)}
+                  </div>
+                );
+              } else {
+                return (
+                  <div
+                    key={index}
+                    className="task"
+                    onClick={() =>
+                      handleRowClick({ id: event.id, type: 'view', date: i.id })
+                    }
+                  >
+                    {truncateText(event.name, 20)}
+                  </div>
+                );
+              }
+            })}
           </div>
         </div>
       );
     });
+
   return <div className="wrapper_calendar">{posts && renderCalendar}</div>;
 };
 

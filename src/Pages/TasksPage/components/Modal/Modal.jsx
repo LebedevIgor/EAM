@@ -102,12 +102,10 @@ const Modal = ({
   };
 
   const deleteTask = async () => {
-    // const updatedTasks = task.filter((t) => t.id !== taskToUpdate.id);
     const id = taskToUpdate.id;
     const host_id = taskToUpdate.host_id;
 
     await deleteDataTask(id, host_id);
-    // setTask(updatedTasks);
     setTaskToUpdate(null);
     setModal(false);
   };

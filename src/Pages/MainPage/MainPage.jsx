@@ -5,7 +5,7 @@ import classes from './MainPage.module.scss';
 import Calendar from './component/Calendar/Calendar';
 import Card from '../../components/Card/Card';
 
-import getCalendar from '../../services/getCalendar';
+import getCalendar from '../../services/getCalendar.service';
 import TableTasks from './component/TableTasks/TableTasks';
 
 const MainPage = ({
@@ -15,7 +15,6 @@ const MainPage = ({
   setPosts,
   month,
   setMonth,
-  compareTarget,
   modal,
   setModal,
   target,
@@ -23,6 +22,14 @@ const MainPage = ({
   setNow,
 
   task,
+  handleRowClick,
+  taskToView,
+  setTaskToView,
+  clickDate,
+  setClickDate,
+  modalEvent,
+  setModalEvent,
+  contacts,
 }) => {
   const [cellData, setCellData] = useState({
     calendarCellId: '',
@@ -41,7 +48,7 @@ const MainPage = ({
       }
     };
     setValues();
-  }, [month, now, cellData, setPosts]);
+  }, [month, now, cellData, setPosts, modal, modalEvent]);
   return (
     <div className={classes.main_page}>
       <Card
@@ -56,7 +63,6 @@ const MainPage = ({
           setMonth={setMonth}
           data={data}
           setData={setData}
-          compareTarget={compareTarget}
           modal={modal}
           setModal={setModal}
           target={target}
@@ -64,9 +70,17 @@ const MainPage = ({
           setNow={setNow}
           cellData={cellData}
           setCellData={setCellData}
+          handleRowClick={handleRowClick}
+          taskToView={taskToView}
+          setTaskToView={setTaskToView}
+          clickDate={clickDate}
+          setClickDate={setClickDate}
+          modalEvent={modalEvent}
+          setModalEvent={setModalEvent}
+          contacts={contacts}
         />
 
-        <TableTasks task={task} />
+        <TableTasks task={task} setModalEvent={setModalEvent} />
       </Card>
     </div>
   );

@@ -1,0 +1,41 @@
+@import '../../../../style/variables.scss';
+
+.main-modal-view {
+  min-width: 450px;
+  .wrapper {
+    margin-top: 8px;
+  }
+  &-container {
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    hr {
+      border: none;
+      color: $neutral200; /* Цвет линии для остальных браузеров */
+      background-color: $neutral200; /* Цвет линии для браузера Firefox и Opera */
+      height: 1px; /* Толщина линии */
+    }
+    ol {
+      li {
+        font-size: 18px;
+      }
+    }
+    input {
+      width: 300px;
+    }
+  }
+
+  button {
+    margin-right: 20px;
+    padding: 2px 6px;
+    line-height: 16px;
+    color: $dark200;
+    background: $light100;
+    box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+  }
+  .error {
+    color: red;
+  }
+}

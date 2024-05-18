@@ -1,4 +1,6 @@
 export default function truncateText(text, maxLength) {
+  text = text.toString();
+
   if (text.length <= maxLength) {
     return text;
   } else {
