@@ -48,7 +48,7 @@ const CalendarTable = ({ posts, setCellData, handleRowClick }) => {
                       handleRowClick({ dataEvents: event, type: 'view' })
                     }
                   >
-                    {truncateText(event.name, 20)}
+                    {event.time} {truncateText(event.name, 15)}
                   </div>
                 );
               } else {

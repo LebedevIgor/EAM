@@ -23,8 +23,7 @@ const ModalView = ({
 
   const deleteEvent = (e) => {
     e.preventDefault();
-    // deleteEventCalendar(taskToView.host_id, taskToView.id);
-    console.log('Delete Event');
+    deleteEventCalendar(taskToView.host_id, taskToView.id);
     setTaskToView(null);
     setModal(false);
   };
@@ -87,8 +86,14 @@ const ModalView = ({
               </div>
             </div>
             <hr />
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div>Описание:</div> <div>{taskToView.description}</div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>Описание:</div>{' '}
+              <div style={{ maxWidth: '350px' }}>{taskToView.description}</div>
             </div>
             <hr />
             <div
@@ -124,7 +129,29 @@ const ModalView = ({
             </div>
             <hr />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div>Описание:</div> <div>{taskToView.description}</div>
+              <div>Дата и Время</div>{' '}
+              <div>
+                {taskToView.date} {taskToView.time}
+              </div>
+            </div>
+            <hr />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>Описание:</div>{' '}
+              <div style={{ maxWidth: '350px' }}>{taskToView.description}</div>
+            </div>
+            <hr />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div>Участники: </div>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {taskToView.particip.map((i, index) => (
+                  <div key={index}>{i.label}</div>
+                ))}
+              </div>
             </div>
           </div>
 

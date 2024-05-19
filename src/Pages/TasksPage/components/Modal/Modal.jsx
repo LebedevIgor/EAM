@@ -62,6 +62,13 @@ const Modal = ({
     }
   }, [modal, setTaskToUpdate]);
 
+  const customStyles = {
+    container: (provided) => ({
+      ...provided,
+      width: 450, // Установите фиксированную ширину в пикселях
+    }),
+  };
+
   const addTasks = async (values) => {
     const newTask = {
       is_private: 'true',
@@ -70,7 +77,7 @@ const Modal = ({
       complete_perc: values.complete_perc,
       condition: values.condition,
       date_remind: '2024-04-12',
-      end_date: '2024-04-12',
+      end_date: values.end_date,
       priority: values.priority,
       description: values.description,
       task_name: values.task_name,
@@ -109,12 +116,6 @@ const Modal = ({
     setTaskToUpdate(null);
     setModal(false);
   };
-
-  const testOptions = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
 
   return (
     <>
@@ -161,6 +162,7 @@ const Modal = ({
                 />
                 <div style={{ width: '100%' }}>
                   <Select
+                    styles={customStyles}
                     placeholder={'Участники'}
                     isMulti
                     options={options}
@@ -225,6 +227,7 @@ const Modal = ({
                 />
                 <div style={{ width: '100%' }}>
                   <Select
+                    styles={customStyles}
                     placeholder={'Участники'}
                     isMulti
                     options={options}

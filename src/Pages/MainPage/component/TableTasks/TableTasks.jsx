@@ -44,49 +44,51 @@ const TableTasks = ({ task, setModalEvent }) => {
           <div className={classes.wrapper_scroll}>
             {task.map((i, index) => {
               if (i.length !== 0) {
-                return (
-                  <Tr
-                    id={i.id}
-                    hoverLastChildFix
-                    hover
-                    key={index}
-                    style={{
-                      cursor: 'grab',
-                      gridTemplateColumns: '90px 183px',
-                      padding: '4px',
-                    }}
-                    draggable
-                    onDragStart={(e) => {
-                      const data = JSON.stringify({
-                        task_id: i.id,
-                        name: i.task_name,
-                      });
-                      e.dataTransfer.setData('data', data);
-                    }}
-                  >
-                    <Td
+                if (i.condition !== 4) {
+                  return (
+                    <Tr
+                      id={i.id}
+                      hoverLastChildFix
+                      hover
+                      key={index}
                       style={{
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        fontFamily: 'monospace',
+                        cursor: 'grab',
+                        gridTemplateColumns: '90px 183px',
+                        padding: '4px',
                       }}
-                      textAlign={'left'}
+                      draggable
+                      onDragStart={(e) => {
+                        const data = JSON.stringify({
+                          task_id: i.id,
+                          name: i.task_name,
+                        });
+                        e.dataTransfer.setData('data', data);
+                      }}
                     >
-                      {truncateText(i.task_name, 7)}
-                    </Td>
+                      <Td
+                        style={{
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          fontFamily: 'monospace',
+                        }}
+                        textAlign={'left'}
+                      >
+                        {truncateText(i.task_name, 7)}
+                      </Td>
 
-                    <Td
-                      style={{
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        fontFamily: 'monospace',
-                      }}
-                      textAlign={'left'}
-                    >
-                      {truncateText(i.description, 17)}
-                    </Td>
-                  </Tr>
-                );
+                      <Td
+                        style={{
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          fontFamily: 'monospace',
+                        }}
+                        textAlign={'left'}
+                      >
+                        {truncateText(i.description, 17)}
+                      </Td>
+                    </Tr>
+                  );
+                } else return null;
               }
               return (
                 <div style={{ textAlign: 'center', color: '#585858' }}>

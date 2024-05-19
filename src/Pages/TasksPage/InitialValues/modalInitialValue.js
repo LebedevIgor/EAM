@@ -7,7 +7,7 @@ export const modalInitialValue = {
   description: '',
   end_date: '',
   is_private: '',
-  priority: '',
+  priority: '1',
   remind: '',
   task_name: '',
 };

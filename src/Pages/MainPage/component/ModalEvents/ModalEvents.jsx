@@ -37,10 +37,12 @@ const ModalEvents = ({ setModal, contacts, modal }) => {
       description: values.description,
       event_name: values.event_name,
       task_particip: selectedOptions,
+      time: values.time,
     };
-
-    await eventsAdd(newEvent);
-    setModal(false);
+    if (values.time.length > 1) {
+      await eventsAdd(newEvent);
+      setModal(false);
+    }
   };
 
   return (
@@ -65,6 +67,8 @@ const ModalEvents = ({ setModal, contacts, modal }) => {
               />
               <FormikInputType name="date" label="Дата" type="date" />
               <FormikTextArea name="description" label="Описание" />
+              <FormikInputType name="time" label="Время" type="time" />
+
               <div style={{ width: '100%' }}>
                 <Select
                   placeholder={'Участники'}

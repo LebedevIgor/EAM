@@ -13,6 +13,7 @@ const eventsAdd = async (values) => {
           date: values.date,
           event_name: values.event_name,
           event_particip: values.task_particip,
+          time: values.time,
         },
         success: true,
       },

@@ -7,7 +7,7 @@ const FormikSelect = ({ label, options, name, isMulti }) => {
     <div className={classes.formik_select}>
       <div className={classes.wrapper}>
         <label htmlFor={name}>{label}</label>
-        <Field id={name} name={name} as="select">
+        <Field id={name} name={name} as="select" defaultValue={options[1]}>
           {options.map((option) => (
             <option
               value={option.value}
